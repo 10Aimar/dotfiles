@@ -1,0 +1,31 @@
+// Input device configuration.
+// https://niri-wm.github.io/niri/Configuration:-Input
+input {
+    keyboard {
+        xkb {
+            // Empty: niri pulls layout from org.freedesktop.locale1,
+            // same as your Plasma session's system layout.
+        }
+        numlock
+    }
+
+    mouse {
+        // Matches Plasma (kcminputrc PointerAccelerationProfile=2 = adaptive).
+        // Unset = libinput default = adaptive, so nothing to add here.
+
+        // Standard scroll direction, matching your choice.
+        // natural-scroll left commented/off = standard.
+    }
+
+    // No touchpad or trackpoint present on this desktop setup.
+
+    // Cursor jumps to the center of the newly focused window
+    // when switching focus via keybind (Mod+H/J/K/L, etc.)
+    warp-mouse-to-focus
+
+    // Moving the mouse over a window focuses it — no click needed.
+    // max-scroll-amount="0%" limits this to windows already fully
+    // visible on screen, so it won't trigger scrolling/shifting the
+    // view just by moving the cursor near an edge.
+    focus-follows-mouse max-scroll-amount="0%"
+}

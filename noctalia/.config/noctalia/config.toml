@@ -1,0 +1,569 @@
+[bar.default]
+background_opacity = 0.74999998323619366
+border = "primary"
+border_width = 0.5
+contact_shadow = true
+end = [ "temp", "sysmon", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "LocknSusp", "session" ]
+margin_ends = 250
+scale = 1.1000000089406967
+shadow = false
+start = [ "launcher", "wallpaper", "workspaces", "media" ]
+thickness = 35
+
+    [bar.default.monitor.HDMI-A-1]
+    enabled = false
+
+[control_center]
+sidebar = "full"
+
+    [[control_center.shortcuts]]
+    type = "wifi"
+
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "caffeine"
+
+    [[control_center.shortcuts]]
+    type = "notification"
+
+    [[control_center.shortcuts]]
+    type = "power_profile"
+
+    [[control_center.shortcuts]]
+    type = "system"
+
+[desktop_widgets]
+schema_version = 2
+widget_order = [
+    "desktop-widget-0000000000000001",
+    "desktop-widget-0000000000000003",
+    "desktop-widget-0000000000000004",
+    "desktop-widget-0000000000000005",
+    "desktop-widget-0000000000000006",
+    "desktop-widget-0000000000000007"
+]
+
+    [desktop_widgets.grid]
+    cell_size = 8
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget.desktop-widget-0000000000000001]
+    box_height = 144.0
+    box_width = 256.0
+    cx = 680.0
+    cy = 120.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "clock"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000001.settings]
+        background = false
+        clock_style = "digital"
+        color = "secondary"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000003]
+    box_height = 80.0
+    box_width = 192.0
+    cx = 376.0
+    cy = 248.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "weather"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000003.settings]
+        background = false
+        color = "secondary"
+        shadow = true
+
+    [desktop_widgets.widget.desktop-widget-0000000000000004]
+    box_height = 208.0
+    box_width = 384.0
+    cx = 960.0
+    cy = 180.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "clock"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000004.settings]
+        background = false
+        color = "secondary"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000005]
+    box_height = 128.0
+    box_width = 320.0
+    cx = 544.0
+    cy = 348.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "weather"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000005.settings]
+        background = false
+        color = "secondary"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000006]
+    box_height = 96.0
+    box_width = 176.0
+    cx = 1560.0
+    cy = 796.0
+    flip_x = true
+    output = "DP-1"
+    rotation = 0.0
+    type = "audio_visualizer"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000006.settings]
+        background = false
+        bands = 128
+        centered = true
+        color_1 = "tertiary"
+        color_2 = "secondary"
+        mirrored = true
+        show_when_idle = true
+
+    [desktop_widgets.widget.desktop-widget-0000000000000007]
+    box_height = 96.0
+    box_width = 120.0
+    cx = 1104.0
+    cy = 568.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "audio_visualizer"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000007.settings]
+        background = false
+        bands = 128
+        color_1 = "secondary"
+        color_2 = "tertiary"
+        show_when_idle = true
+
+[dock]
+auto_hide = true
+background_opacity = 0.0
+enabled = true
+icon_size = 65
+monitors = [ "DP-1" ]
+pinned = [ "com.spotify.Client", "net.thunderbird.Thunderbird", "org.kde.dolphin", "org.mozilla.firefox" ]
+reserve_space = false
+show_dots = true
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+pre_action_fade_seconds = 0
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = false
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = false
+    timeout = 660.0
+
+[location]
+address = "Lisbon"
+
+[lockscreen]
+fingerprint = false
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [
+    "lockscreen-widget-0000000000000011",
+    "lockscreen-widget-000000000000000e",
+    "lockscreen-widget-000000000000000b",
+    "lockscreen-widget-0000000000000013",
+    "lockscreen-login-box@DP-1",
+    "lockscreen-login-box@HDMI-A-1",
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000007",
+    "lockscreen-widget-0000000000000009",
+    "lockscreen-widget-000000000000000c",
+    "lockscreen-widget-000000000000000d",
+    "lockscreen-widget-000000000000000f",
+    "lockscreen-widget-0000000000000010",
+    "lockscreen-widget-0000000000000008",
+    "lockscreen-widget-0000000000000012"
+]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 960.0
+    cy = 917.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 1.0
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = false
+        show_password_hint = false
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 680.0
+    cy = 637.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = false
+        show_password_hint = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 144.0
+    box_width = 256.0
+    cx = 680.0
+    cy = 120.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        background = false
+        background_color = "surface"
+        background_opacity = 0.80000000000000004
+        background_padding = 10
+        background_radius = 12
+        center_text = false
+        circle = true
+        clock_style = "digital"
+        color = "secondary"
+        font_family = ""
+        format = "{:%H:%M}"
+        shadow = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000007]
+    box_height = 208.0
+    box_width = 384.0
+    cx = 960.0
+    cy = 180.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000007.settings]
+        background = false
+        center_text = false
+        clock_style = "digital"
+        color = "secondary"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000008]
+    box_height = 288.0
+    box_width = 192.0
+    cx = 960.0
+    cy = 604.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "media_player"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000008.settings]
+        background = false
+        color = "on_surface"
+        hide_when_no_media = true
+        layout = "vertical"
+        shadow = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000009]
+    box_height = 64.0
+    box_width = 64.0
+    cx = 960.0
+    cy = 812.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "button"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000009.settings]
+        background = true
+        color = "secondary"
+        command = "noctalia msg session lock-and-suspend"
+        glyph = "suspend"
+        hover_background = "hover"
+        label = ""
+        variant = "outline"
+
+    [lockscreen_widgets.widget.lockscreen-widget-000000000000000b]
+    box_height = 128.0
+    box_width = 640.0
+    cx = 960.0
+    cy = 1016.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "audio_visualizer"
+
+        [lockscreen_widgets.widget.lockscreen-widget-000000000000000b.settings]
+        background = false
+        bands = 28
+        centered = true
+        color_1 = "secondary"
+        color_2 = "primary"
+        mirrored = true
+        show_when_idle = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-000000000000000c]
+    box_height = 64.0
+    box_width = 64.0
+    cx = 880.0
+    cy = 812.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "button"
+
+        [lockscreen_widgets.widget.lockscreen-widget-000000000000000c.settings]
+        background = true
+        command = "noctalia msg session reboot"
+        glyph = "reboot"
+        label = ""
+        variant = "outline"
+
+    [lockscreen_widgets.widget.lockscreen-widget-000000000000000d]
+    box_height = 64.0
+    box_width = 64.0
+    cx = 1040.0
+    cy = 812.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "button"
+
+        [lockscreen_widgets.widget.lockscreen-widget-000000000000000d.settings]
+        background = true
+        color = "error"
+        command = "noctalia msg session shutdown"
+        glyph = "power"
+        label = ""
+        variant = "outline"
+
+    [lockscreen_widgets.widget.lockscreen-widget-000000000000000e]
+    box_height = 96.0
+    box_width = 512.0
+    cx = 680.0
+    cy = 720.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "audio_visualizer"
+
+        [lockscreen_widgets.widget.lockscreen-widget-000000000000000e.settings]
+        background = false
+        bands = 28
+        centered = true
+        color_1 = "secondary"
+        color_2 = "primary"
+        show_when_idle = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-000000000000000f]
+    box_height = 80.0
+    box_width = 192.0
+    cx = 376.0
+    cy = 248.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "weather"
+
+        [lockscreen_widgets.widget.lockscreen-widget-000000000000000f.settings]
+        background = false
+        color = "secondary"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000010]
+    box_height = 128.0
+    box_width = 320.0
+    cx = 544.0
+    cy = 348.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "weather"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000010.settings]
+        background = false
+        color = "secondary"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000011]
+    box_height = 512.0
+    box_width = 576.0
+    cx = 680.0
+    cy = 384.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "fancy_audio_visualizer"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000011.settings]
+        background = false
+        bar_width = 0.20000000000000001
+        bloom_intensity = 0.5
+        inner_diameter = 1.0
+        primary_color = "primary"
+        ring_opacity = 1.0
+        rotation_speed = 0.30000000000000004
+        secondary_color = "secondary"
+        sensitivity = 1.3
+        visualization_mode = "all"
+        wave_thickness = 0.29999999999999999
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000012]
+    box_height = 224.0
+    box_width = 128.0
+    cx = 680.0
+    cy = 432.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "media_player"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000012.settings]
+        background = false
+        layout = "vertical"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000013]
+    box_height = 640.0
+    box_width = 640.0
+    cx = 960.0
+    cy = 540.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "fancy_audio_visualizer"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000013.settings]
+        background = false
+        bar_width = 0.20000000000000001
+        inner_diameter = 1.0
+        primary_color = "primary"
+        ring_opacity = 1.0
+        rotation_speed = 0.30000000000000004
+        secondary_color = "secondary"
+        sensitivity = 1.3
+        visualization_mode = "all"
+        wave_thickness = 0.29999999999999999
+
+[nightlight]
+enabled = true
+temperature_day = 4500
+temperature_night = 3000
+
+[osd]
+monitors = [ "DP-1" ]
+
+[shell]
+niri_overview_type_to_launch_enabled = true
+password_style = "random"
+screen_time_enabled = true
+settings_show_advanced = true
+telemetry_enabled = true
+
+    [shell.mpris]
+    blacklist = [ "firefox" ]
+
+    [shell.panel]
+    open_near_click_control_center = true
+    open_near_click_session = true
+    open_near_click_wallpaper = true
+    session_placement = "floating"
+    transparency_mode = "soft"
+    wallpaper_placement = "floating"
+
+[system.monitor]
+disk_poll_seconds = 0
+gpu_poll_seconds = 5
+
+[theme]
+builtin = "Tokyo-Night"
+community_palette = "Catppuccin Macchiato Pink"
+source = "community"
+wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "kcolorscheme", "niri", "qt", "starship" ]
+    community_ids = [ "spicetify", "pywalfox", "steam" ]
+
+[wallpaper.default]
+path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
+
+[wallpaper.last]
+path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
+
+[wallpaper.monitors.DP-1]
+path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
+
+[wallpaper.monitors.HDMI-A-1]
+path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
+
+[widget.LocknSusp]
+color = "secondary"
+command = "noctalia msg session lock"
+glyph = "lock"
+right_command = "noctalia msg session lock-and-suspend"
+type = "custom_button"
+
+[widget.clock]
+font_weight = 1000
+
+[widget.cpu]
+display = "graph"
+
+[widget.launcher]
+color = "tertiary"
+custom_image = "/usr/share/noctalia/assets/images/distros/fedora.svg"
+custom_image_colorize = true
+scale = 1.5
+
+[widget.media]
+capsule_border = "error"
+hide_when_no_media = true
+title_scroll = "on_hover"
+
+[widget.network]
+show_label = false
+
+[widget.session]
+capsule = true
+color = "error"
+
+[widget.sysmon]
+display = "text"
+glyph = "gpu-usage"
+stat = "gpu_temp"
+
+[widget.temp]
+display = "text"
+
+[widget.tray]
+drawer = true
+pinned = [ "steam", "coolercontrol" ]
+scale = 1.2
+
+[widget.volume]
+show_label = false
+
+[widget.wallpaper]
+scale = 1.3
+
+[widget.workspaces]
+capsule_border = "tertiary"
+hide_when_empty = true

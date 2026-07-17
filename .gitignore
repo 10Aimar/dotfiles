@@ -1,0 +1,15 @@
+# Editor files
+*~
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+
+# Betterleaks reports
+betterleaks-report.*
+
+# Local secrets
+.env
+.env.*
+secrets.sh

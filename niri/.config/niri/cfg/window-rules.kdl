@@ -1,0 +1,54 @@
+// Window rules: adjust behavior for individual apps.
+// https://niri-wm.github.io/niri/Configuration:-Window-Rules
+
+// Work around WezTerm's initial configure bug.
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+// Open Firefox picture-in-picture as floating.
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+// Example: block password managers from screen capture (disabled).
+/-window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+    block-out-from "screen-capture"
+}
+
+// Example: rounded corners for all windows (disabled, superseded by noctalia's rule).
+/-window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+
+// --My Edits--
+
+// Spotify always opens on the left monitor (Samsung TV).
+window-rule {
+    match app-id="spotify"
+    open-on-output "HDMI-A-1"
+    open-maximized true
+}
+// Firefox tilled
+window-rule {
+    match app-id=r#"firefox$"#
+    open-maximized true
+}
+
+// VRR for Steam Games
+window-rule {
+    match app-id="steam_app_"
+    variable-refresh-rate true
+}
+
+window-rule {
+    match app-id="steam_app_4096950636"
+    open-fullscreen true
+}
+

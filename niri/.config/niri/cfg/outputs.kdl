@@ -1,0 +1,19 @@
+// Output (monitor) configuration.
+// Run `niri msg outputs` to find your output names and modes.
+// https://niri-wm.github.io/niri/Configuration:-Outputs
+
+// Main monitor: ViewSonic XG2405, FullHD @144Hz with VRR, positioned to the right.
+output "DP-1" {
+    mode "1920x1080@144.001"
+    scale 1
+    position x=907 y=0
+    variable-refresh-rate on-demand=true
+    focus-at-startup
+}
+
+// Second monitor: Samsung TV, 720p @60Hz, positioned to the left.
+output "HDMI-A-1" {
+    mode "1360x768@60.015"
+    scale 1
+    position x=0 y=0
+}
