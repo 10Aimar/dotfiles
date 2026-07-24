@@ -21,7 +21,7 @@ input {
 
     // Cursor jumps to the center of the newly focused window
     // when switching focus via keybind (Mod+H/J/K/L, etc.)
-    warp-mouse-to-focus
+    // warp-mouse-to-focus
 
     // Moving the mouse over a window focuses it — no click needed.
     // max-scroll-amount="0%" limits this to windows already fully
