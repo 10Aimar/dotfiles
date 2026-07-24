@@ -120,13 +120,17 @@ fi
 echo "==> Stowing dotfiles..."
 cd "$DOTFILES_DIR"
 stow zsh starship konsole niri noctalia
+echo "✓ Dotfiles linked."
 
 # -----------------------------
-# 8. Set zsh as default shell (optional but likely wanted)
+# 8. Set zsh as default shell
 # -----------------------------
-if [ "$SHELL" != "$(which zsh)" ]; then
+ZSH_BIN="$(command -v zsh)"
+
+if [ "$SHELL" != "$ZSH_BIN" ]; then
     echo "==> Setting zsh as default shell..."
-    chsh -s "$(which zsh)"
+    sudo usermod -s "$ZSH_BIN" "$USER"
+    echo "✓ Default shell set to $ZSH_BIN"
 fi
 
 echo "=================================================="
