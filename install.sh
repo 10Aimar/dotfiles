@@ -37,6 +37,7 @@ sudo dnf install -y \
     git \
     gh \
     stow \
+    which \
     zsh \
     starship \
     noctalia \
