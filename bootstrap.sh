@@ -42,3 +42,19 @@ echo "==> Running install.sh..."
 cd "$DOTFILES_DIR"
 chmod +x install.sh
 ./install.sh
+
+# -----------------------------
+# 4. Build and set up noctalia-greeter
+# -----------------------------
+# bootstrap.sh implies a fresh TTY setup with nothing configured yet,
+# so it's worth going all the way to a working login screen here,
+# unlike install.sh which stays package-installs-only for faster re-runs.
+echo "==> Running install-greeter.sh..."
+chmod +x install-greeter.sh
+./install-greeter.sh
+
+echo "=================================================="
+echo " Bootstrap complete! Reboot to land on the"
+echo " noctalia-greeter login screen:"
+echo "     sudo reboot"
+echo "=================================================="

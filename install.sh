@@ -5,6 +5,9 @@
 #   cd ~/dotfiles
 #   chmod +x install.sh
 #   ./install.sh
+#
+# For the noctalia-greeter login screen (compiled from source, no Fedora
+# package exists yet), run install-greeter.sh separately after this script.
 
 set -e  # stop immediately if any command fails
 
@@ -16,7 +19,8 @@ echo "=================================================="
 # 1. Enable required COPR repos
 # -----------------------------
 echo "==> Enabling COPR repositories..."
-sudo dnf copr enable -y yalter/niri
+# starship isn't in Fedora's default repos
+sudo dnf copr enable -y atim/starship
 
 # -----------------------------
 # 2. Install packages
@@ -25,7 +29,8 @@ echo "==> Installing packages..."
 
 # --setopt=install_weak_deps=False on niri specifically, since noctalia
 # already provides the launcher/bar functionality niri would otherwise
-# pull in (alacritty, fuzzel, waybar) as weak/recommended deps.
+# pull in (alacritty, fuzzel, waybar, swaylock) as weak/recommended deps.
+# niri itself is in Fedora's official repos as of F44 - no COPR needed.
 sudo dnf install -y --setopt=install_weak_deps=False niri
 
 sudo dnf install -y \
@@ -36,9 +41,18 @@ sudo dnf install -y \
     starship \
     noctalia \
     konsole \
+    dolphin \
+    kdeconnectd \
     pipewire \
+    pipewire-pulseaudio \
     wireplumber \
-    xdg-desktop-portal-gnome \
+    dbus-broker \
+    polkit \
+    seatd \
+    xdg-desktop-portal \
+    xdg-desktop-portal-wlr \
+    xdg-desktop-portal-gtk \
+    NetworkManager \
     playerctl
 
 # NOTE: xwayland-satellite is intentionally NOT installed here.
@@ -49,7 +63,25 @@ sudo dnf install -y \
 #   sudo dnf install xwayland-satellite
 
 # -----------------------------
-# 3. Install zsh plugins
+# 3. seatd: group + service
+# -----------------------------
+# niri needs access to seatd to manage input/GPU devices without root.
+echo "==> Configuring seatd..."
+sudo usermod -aG seat "$USER"
+sudo systemctl enable --now seatd
+
+# -----------------------------
+# 4. Trim a common boot-time delay
+# -----------------------------
+# NetworkManager-wait-online can add up to ~90s to boot waiting to
+# confirm full connectivity. NetworkManager itself still connects fine
+# in the background without this - only the artificial boot-blocking
+# wait is removed.
+echo "==> Disabling NetworkManager-wait-online (boot speed)..."
+sudo systemctl disable NetworkManager-wait-online.service || true
+
+# -----------------------------
+# 5. Install zsh plugins
 # -----------------------------
 echo "==> Installing zsh plugins..."
 mkdir -p ~/.zsh/plugins
@@ -70,7 +102,7 @@ clone_or_update https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plug
 clone_or_update https://github.com/zsh-users/zsh-completions ~/.zsh/plugins/zsh-completions
 
 # -----------------------------
-# 4. Clone dotfiles repo (skip if already here, e.g. running locally)
+# 6. Clone dotfiles repo (skip if already here, e.g. running locally)
 # -----------------------------
 DOTFILES_DIR="$HOME/dotfiles"
 
@@ -82,14 +114,14 @@ else
 fi
 
 # -----------------------------
-# 5. Symlink configs with stow
+# 7. Symlink configs with stow
 # -----------------------------
 echo "==> Stowing dotfiles..."
 cd "$DOTFILES_DIR"
 stow zsh starship konsole niri noctalia
 
 # -----------------------------
-# 6. Set zsh as default shell (optional but likely wanted)
+# 8. Set zsh as default shell (optional but likely wanted)
 # -----------------------------
 if [ "$SHELL" != "$(which zsh)" ]; then
     echo "==> Setting zsh as default shell..."
@@ -97,6 +129,12 @@ if [ "$SHELL" != "$(which zsh)" ]; then
 fi
 
 echo "=================================================="
-echo " Done! Log out and select niri from your display"
-echo " manager, or reboot."
+echo " Done!"
+echo ""
+echo " - Log out and back in for the seat group + shell"
+echo "   changes to take effect (or reboot)."
+echo " - For the graphical login screen, run:"
+echo "     ./install-greeter.sh"
+echo "   Without it, you can still test manually with:"
+echo "     niri"
 echo "=================================================="
