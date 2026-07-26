@@ -53,8 +53,6 @@ echo "==> Running install-greeter.sh..."
 chmod +x install-greeter.sh
 ./install-greeter.sh
 
-echo "=================================================="
-echo " Bootstrap complete! Reboot to land on the"
-echo " noctalia-greeter login screen:"
-echo "     sudo reboot"
-echo "=================================================="
+echo "==> Running post-install.sh..."
+chmod +x post-install-sh
+./post-install.sh
