@@ -54,5 +54,5 @@ chmod +x install-greeter.sh
 ./install-greeter.sh
 
 echo "==> Running post-install.sh..."
-chmod +x post-install-sh
+chmod +x post-install.sh
 ./post-install.sh
