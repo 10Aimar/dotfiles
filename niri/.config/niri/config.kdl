@@ -181,8 +181,17 @@ environment {
 // Noctalia V4
 // spawn-at-startup "qs" "-c" "noctalia-shell"
 
+// 4 Kwallet seemless login
+spawn-at-startup "/usr/libexec/pam_kwallet_init"
+
 // Noctalia V5
 spawn-at-startup "noctalia"
+
+//Syncathing -command4tray: flatpak override --user --env=XDG_CURRENT_DESKTOP=KDE com.github.zocker_160.SyncThingy 
+spawn-at-startup "flatpak" "run" "--command=SyncThingy" "com.github.zocker_160.SyncThingy"
+
+//Steam
+//spawn-sh-at-startup "sleep 3 && /usr/bin/steam -silent"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"

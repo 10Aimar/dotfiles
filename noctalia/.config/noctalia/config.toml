@@ -1,53 +1,20 @@
 [bar]
-order = [ "default", "TVbar" ]
+order = [ "MainBar", "TVBar" ]
 
-    [bar.TVbar]
+    [bar.MainBar]
     background_opacity = 0.0
     border = "primary"
     border_width = 1.5
     concave_edge_corners = false
-    end = [ "media" ]
-    margin_ends = 150
-    start = [ "workspaces" ]
-    thickness = 20
-
-        [bar.TVbar.dead_zone]
-        scroll_down_command = "niri msg action focus-column-right-or-first"
-        scroll_up_command = "niri msg action focus-column-left-or-last"
-
-        [bar.TVbar.monitor.DP-1]
-        enabled = false
-
-    [bar.default]
-    background_opacity = 0.0
-    border = "primary"
-    border_width = 1.5
-    concave_edge_corners = false
-    contact_shadow = true
-    end = [
-        "temp",
-        "sysmon",
-        "tray",
-        "notifications",
-        "clipboard",
-        "network",
-        "bluetooth",
-        "volume",
-        "LocknSusp",
-        "session"
-    ]
+    end = [ "cpu", "temp", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "session" ]
     margin_ends = 250
     scale = 1.1000000089406967
-    shadow = false
     start = [ "launcher", "wallpaper", "workspaces", "media" ]
-    thickness = 35
 
-        [bar.default.dead_zone]
-        scroll_down_command = "niri msg action focus-column-right-or-first"
-        scroll_up_command = "niri msg action focus-column-left-or-last"
-
-        [bar.default.monitor.HDMI-A-1]
-        enabled = false
+        [bar.MainBar.dead_zone.actions]
+        middle = "desktop-widgets-edit"
+        scroll_down = "exec niri msg action focus-column-right-or-first"
+        scroll_up = "exec niri msg action focus-column-left-or-last"
 
 [control_center]
 hidden_tabs = [ "monitor" ]
@@ -76,14 +43,13 @@ sidebar_section = "none"
 schema_version = 2
 widget_order = [
     "desktop-widget-0000000000000001",
-    "desktop-widget-0000000000000003",
     "desktop-widget-0000000000000004",
     "desktop-widget-0000000000000005",
     "desktop-widget-0000000000000006",
     "desktop-widget-0000000000000007",
-    "desktop-widget-0000000000000008",
-    "desktop-widget-0000000000000009",
-    "desktop-widget-000000000000000a"
+    "desktop-widget-000000000000000a",
+    "desktop-widget-000000000000000b",
+    "desktop-widget-000000000000000c"
 ]
 
     [desktop_widgets.grid]
@@ -104,20 +70,6 @@ widget_order = [
         background = false
         clock_style = "digital"
         color = "secondary"
-
-    [desktop_widgets.widget.desktop-widget-0000000000000003]
-    box_height = 80.0
-    box_width = 192.0
-    cx = 376.0
-    cy = 248.0
-    output = "HDMI-A-1"
-    rotation = 0.0
-    type = "weather"
-
-        [desktop_widgets.widget.desktop-widget-0000000000000003.settings]
-        background = false
-        color = "secondary"
-        shadow = true
 
     [desktop_widgets.widget.desktop-widget-0000000000000004]
     box_height = 208.0
@@ -185,34 +137,6 @@ widget_order = [
         color_2 = "tertiary"
         show_when_idle = true
 
-    [desktop_widgets.widget.desktop-widget-0000000000000008]
-    box_height = 72.0
-    box_width = 168.0
-    cx = 1556.0
-    cy = 912.0
-    output = "DP-1"
-    rotation = 0.0
-    type = "10aimar/nowplaying:nowplaying"
-
-        [desktop_widgets.widget.desktop-widget-0000000000000008.settings]
-        artist_color = "hover"
-        background = false
-        title_color = "hover"
-
-    [desktop_widgets.widget.desktop-widget-0000000000000009]
-    box_height = 56.0
-    box_width = 120.0
-    cx = 1104.0
-    cy = 652.0
-    output = "HDMI-A-1"
-    rotation = 0.0
-    type = "10aimar/nowplaying:nowplaying"
-
-        [desktop_widgets.widget.desktop-widget-0000000000000009.settings]
-        artist_color = "hover"
-        background = false
-        title_color = "tertiary"
-
     [desktop_widgets.widget.desktop-widget-000000000000000a]
     box_height = 72.0
     box_width = 1912.0
@@ -231,6 +155,41 @@ widget_order = [
         color_1 = "primary"
         color_2 = "secondary"
         show_when_idle = false
+
+    [desktop_widgets.widget.desktop-widget-000000000000000b]
+    box_height = 72.0
+    box_width = 1352.0
+    cx = 680.0
+    cy = 768.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "audio_visualizer"
+
+        [desktop_widgets.widget.desktop-widget-000000000000000b.settings]
+        background = false
+        background_color = "secondary"
+        background_opacity = 0.71999999999999997
+        bands = 104
+        centered = true
+        color_1 = "primary"
+        color_2 = "secondary"
+        show_when_idle = false
+
+    [desktop_widgets.widget.desktop-widget-000000000000000c]
+    box_height = 160.0
+    box_width = 216.0
+    cx = 456.0
+    cy = 256.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "weather"
+
+        [desktop_widgets.widget.desktop-widget-000000000000000c.settings]
+        background = false
+        color = "secondary"
+        forecast_days = 2
+        shadow = true
+        show_forecast = true
 
 [dock]
 auto_hide = true
@@ -569,7 +528,7 @@ temperature_night = 3000
 monitors = [ "DP-1" ]
 
 [plugins]
-enabled = [ "10aimar/nowplaying" ]
+enabled = []
 
     [[plugins.source]]
     enabled = false
@@ -582,11 +541,6 @@ enabled = [ "10aimar/nowplaying" ]
     kind = "git"
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
-
-    [[plugins.source]]
-    kind = "path"
-    location = "/home/dockas/.local/share/noctalia/plugins/"
-    name = "1stplugin"
 
 [shell]
 niri_overview_type_to_launch_enabled = true
@@ -646,24 +600,18 @@ transition_on_startup = true
     theme_mode = "auto"
     wallpaper_scheme = "soft"
 
-[widget.LocknSusp]
-color = "secondary"
-command = "noctalia msg session lock"
-glyph = "lock"
-right_command = "noctalia msg session lock-and-suspend"
-type = "custom_button"
-
 [widget.clock]
 font_weight = 1000
 scale = 1.1000000000000001
 
 [widget.cpu]
-display = "graph"
+display = "text"
+glyph = "cpu-temperature"
+stat = "cpu_temp"
 
 [widget.launcher]
 color = "tertiary"
-custom_image = "/usr/share/noctalia/assets/images/distros/fedora.svg"
-custom_image_colorize = true
+custom_image = "/home/dockas/Pictures/FedoraLogos/fedoraLBlue1.svg"
 scale = 1.5
 
 [widget.media]
@@ -685,9 +633,12 @@ stat = "gpu_temp"
 
 [widget.temp]
 display = "text"
+glyph = "cpu"
+stat = "gpu_temp"
 
 [widget.tray]
-drawer = false
+drawer = true
+drawer_item_size = 20.0
 pinned = [ "steam", "coolercontrol" ]
 scale = 1.2
 

@@ -6,7 +6,7 @@ input {
             // Empty: niri pulls layout from org.freedesktop.locale1,
             // same as your Plasma session's system layout.
         }
-        numlock
+        //numlock
     }
 
     mouse {

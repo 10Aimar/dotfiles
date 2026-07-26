@@ -9,6 +9,9 @@ output "DP-1" {
     position x=907 y=0
     variable-refresh-rate on-demand=true
     focus-at-startup
+    hot-corners {
+        bottom-right
+    }
 }
 
 // Second monitor: Samsung TV, 720p @60Hz, positioned to the left.
@@ -16,4 +19,7 @@ output "HDMI-A-1" {
     mode "1360x768@60.015"
     scale 1
     position x=0 y=0
+    hot-corners {
+        bottom-left
+    }
 }
