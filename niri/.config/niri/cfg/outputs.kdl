@@ -23,3 +23,19 @@ output "HDMI-A-1" {
         bottom-left
     }
 }
+
+// Laptop
+output "eDP-1" {
+    mode "1920x1080@60.000"
+    hot-corners {
+        bottom-right
+    }
+}
+
+// Virtual Machine
+output "Virtual-1" {
+    mode "1920x1080@60.000"
+    hot-corners {
+        bottom-right
+    }
+}

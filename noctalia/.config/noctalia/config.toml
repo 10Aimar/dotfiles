@@ -597,20 +597,20 @@ transition = [ "disc", "honeycomb", "stripes" ]
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
+    path = "$HOME/Pictures/Wallpapers/Illustrated.png"
 
     [wallpaper.last]
-    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
+    path = "$HOME/Pictures/Wallpapers/Illustrated.png"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
+    path = "$HOME/Pictures/Wallpapers/Illustrated.png"
 
     [wallpaper.monitors.HDMI-A-1]
-    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
+    path = "$HOME/Pictures/Wallpapers/Illustrated.png"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
-    path = "/home/dockas/Pictures/Wallpapers/982990.jpg"
+    path = "$HOME/Pictures/Wallpapers/Illustrated.png"
     theme_mode = "auto"
     wallpaper_scheme = "soft"
 
