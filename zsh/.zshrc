@@ -51,5 +51,8 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 # Added by pipx
 export PATH="$PATH:$HOME/.local/bin"
 
+# Added from Noctalia
+export QT_QPA_PLATFORMTHEME=qt6ct
+
 # Enable '#' as comments in interactive shell
 setopt interactivecomments
