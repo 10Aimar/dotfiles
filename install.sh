@@ -21,6 +21,8 @@ echo "=================================================="
 echo "==> Enabling COPR repositories..."
 # starship isn't in Fedora's default repos
 sudo dnf copr enable -y atim/starship
+# ghostty has no official Fedora package yet either
+sudo dnf copr enable -y scottames/ghostty
 
 # -----------------------------
 # 2. Install packages
@@ -42,6 +44,7 @@ sudo dnf install -y \
     starship \
     noctalia \
     konsole \
+    ghostty \
     dolphin \
     kdeconnectd \
     pipewire \
@@ -64,7 +67,70 @@ sudo dnf install -y \
 #   sudo dnf install xwayland-satellite
 
 # -----------------------------
-# 3. seatd: group + service
+# 3. RPM Fusion + full codecs
+# -----------------------------
+# Fedora ships without patent-encumbered codecs (H.264, HEVC, MP3
+# encoding, etc.) by default. RPM Fusion's free+nonfree repos provide
+# these, plus the full ffmpeg build and GStreamer plugins.
+echo "==> Enabling RPM Fusion..."
+sudo dnf install -y \
+    "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
+    "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+sudo dnf install -y rpmfusion-free-appstream-data rpmfusion-nonfree-appstream-data
+
+echo "==> Swapping to full ffmpeg and installing multimedia codecs..."
+sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
+# 'group install' (not 'update') since this is a minimal system where
+# the multimedia group was never installed in the first place.
+sudo dnf group install -y multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+sudo dnf group install -y sound-and-video
+
+# -----------------------------
+# 4. AMD hardware video acceleration
+# -----------------------------
+# Fedora's default Mesa VA/VDPAU drivers dropped H.264/HEVC decode
+# due to patent concerns. RPM Fusion's -freeworld builds restore it,
+# offloading video decode from CPU to GPU (RX 6700 XT here).
+echo "==> Installing AMD hardware video acceleration..."
+sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
+sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+
+# -----------------------------
+# 5. OpenH264 for Firefox
+# -----------------------------
+echo "==> Installing OpenH264 for Firefox..."
+sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
+sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+
+# -----------------------------
+# 6. Dual-boot clock fix
+# -----------------------------
+# Windows and Linux disagree by default on whether the hardware clock
+# stores UTC or local time, causing the clock to look wrong after
+# switching OSes. This tells Fedora to use UTC, matching the fix on
+# the Windows side being to leave it as-is (Linux is the one that
+# conventionally adapts here).
+echo "==> Setting hardware clock to UTC (dual-boot fix)..."
+sudo timedatectl set-local-rtc 0 --adjust-system-clock
+
+# -----------------------------
+# 7. Archive + AppImage support
+# -----------------------------
+echo "==> Installing archive and AppImage support..."
+sudo dnf install -y p7zip p7zip-plugins unrar unzip fuse fuse-libs
+
+# -----------------------------
+# 8. Flathub (full repo)
+# -----------------------------
+# Fedora's default Flatpak remote is a filtered subset. This removes
+# it and adds the full Flathub repo instead.
+echo "==> Setting up full Flathub repo..."
+sudo dnf install -y flatpak
+flatpak remote-delete fedora --force 2>/dev/null || true
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# -----------------------------
+# 9. seatd: group + service
 # -----------------------------
 # niri needs access to seatd to manage input/GPU devices without root.
 echo "==> Configuring seatd..."
@@ -72,7 +138,7 @@ sudo usermod -aG seat "$USER"
 sudo systemctl enable --now seatd
 
 # -----------------------------
-# 4. Trim a common boot-time delay
+# 10. Trim a common boot-time delay
 # -----------------------------
 # NetworkManager-wait-online can add up to ~90s to boot waiting to
 # confirm full connectivity. NetworkManager itself still connects fine
@@ -82,7 +148,7 @@ echo "==> Disabling NetworkManager-wait-online (boot speed)..."
 sudo systemctl disable NetworkManager-wait-online.service || true
 
 # -----------------------------
-# 5. Install zsh plugins
+# 11. Install zsh plugins
 # -----------------------------
 echo "==> Installing zsh plugins..."
 mkdir -p ~/.zsh/plugins
@@ -103,7 +169,7 @@ clone_or_update https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plug
 clone_or_update https://github.com/zsh-users/zsh-completions ~/.zsh/plugins/zsh-completions
 
 # -----------------------------
-# 6. Clone dotfiles repo (skip if already here, e.g. running locally)
+# 12. Clone dotfiles repo (skip if already here, e.g. running locally)
 # -----------------------------
 DOTFILES_DIR="$HOME/dotfiles"
 
@@ -115,15 +181,15 @@ else
 fi
 
 # -----------------------------
-# 7. Symlink configs with stow
+# 13. Symlink configs with stow
 # -----------------------------
 echo "==> Stowing dotfiles..."
 cd "$DOTFILES_DIR"
-stow zsh starship konsole niri noctalia
+stow zsh starship konsole ghostty niri
 echo "✓ Dotfiles linked."
 
 # -----------------------------
-# 8. Set zsh as default shell
+# 14. Set zsh as default shell
 # -----------------------------
 ZSH_BIN="$(command -v zsh)"
 
@@ -134,7 +200,7 @@ if [ "$SHELL" != "$ZSH_BIN" ]; then
 fi
 
 echo "=================================================="
-echo " Done!"
+echo " install.sh done!"
 echo ""
 echo " - Log out and back in for the seat group + shell"
 echo "   changes to take effect (or reboot)."
