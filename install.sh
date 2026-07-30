@@ -194,7 +194,7 @@ fi
 # -----------------------------
 echo "==> Stowing dotfiles..."
 cd "$DOTFILES_DIR"
-stow zsh starship konsole ghostty niri
+stow zsh starship konsole ghostty niri noctalia
 echo "✓ Dotfiles linked."
 
 # -----------------------------
