@@ -13,3 +13,4 @@ betterleaks-report.*
 .env
 .env.*
 secrets.sh
+ghostty/.config/ghostty/themes/noctalia
