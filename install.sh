@@ -21,8 +21,15 @@ echo "=================================================="
 echo "==> Enabling COPR repositories..."
 # starship isn't in Fedora's default repos
 sudo dnf copr enable -y atim/starship
-# ghostty has no official Fedora package yet either
-sudo dnf copr enable -y scottames/ghostty
+
+# -----------------------------
+# 1b. Enable Terra repo (for ghostty)
+# -----------------------------
+# ghostty has no official Fedora package yet. Using Terra instead of a
+# single-maintainer COPR since it also provides ghostty-kio (Dolphin
+# integration).
+echo "==> Enabling Terra repository..."
+sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # -----------------------------
 # 2. Install packages
@@ -45,6 +52,8 @@ sudo dnf install -y \
     noctalia \
     konsole \
     ghostty \
+    ghostty-kio \
+    qt6ct \
     dolphin \
     kdeconnectd \
     pipewire \
