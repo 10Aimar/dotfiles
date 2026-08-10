@@ -10,7 +10,7 @@ output "DP-1" {
     variable-refresh-rate on-demand=true
     focus-at-startup
     hot-corners {
-        bottom-right
+        bottom-left
     }
 }
 
@@ -29,7 +29,7 @@ output "HDMI-A-1" {
 output "eDP-1" {
     mode "1920x1080@60.000"
     hot-corners {
-        bottom-right
+        bottom-left
     }
 }
 
@@ -37,6 +37,6 @@ output "eDP-1" {
 output "Virtual-1" {
     mode "1920x1080@60.000"
     hot-corners {
-        bottom-right
+        bottom-left
     }
 }

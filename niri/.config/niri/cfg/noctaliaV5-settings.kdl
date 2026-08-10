@@ -90,6 +90,15 @@ layer-rule {
   }
 }
 
+  // Bar with no blur
+layer-rule {
+  match namespace="^noctalia-bar-"
+  background-effect {
+    blur false
+    xray false
+  }
+}
+
 /* You can also fine-tune the blur effect globally. */
 blur {
   passes 2        // more passes = stronger blur (default: 3)

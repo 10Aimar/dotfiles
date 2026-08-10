@@ -47,8 +47,32 @@ window-rule {
     variable-refresh-rate true
 }
 
+//n Hearthstone
 window-rule {
     match app-id="steam_app_4096950636"
-    open-fullscreen true
+    open-maximized true
 }
 
+//  Netflix - Brave PWA
+window-rule {
+    match app-id="brave-eppojlglocelodeimnohnlnionkobfln-Default"
+    open-maximized true
+}
+
+// NOS TV - Brave PWA
+window-rule {
+    match app-id="brave-pnghkaloolpocgfpndmjfbhpjffdmdii-Default"
+    open-maximized true
+}
+
+// Thunderbird
+window-rule {
+    match app-id="net.thunderbird.Thunderbird"
+    open-maximized true
+}
+
+// Stremio
+window-rule {
+    match app-id="com.stremio.Stremio"
+    open-maximized true
+}

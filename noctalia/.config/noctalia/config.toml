@@ -1,23 +1,86 @@
 [bar]
-order = [ "MainBar", "TVBar" ]
+order = [ "MainBar", "SideBar" ]
 
     [bar.MainBar]
     background_opacity = 0.0
     border = "primary"
-    border_width = 1.5
+    border_width = 0.0
+    capsule = true
+    capsule_border = "on_hover"
+    capsule_fill = "on_hover"
+    capsule_opacity = 0.75
+    center = [ "media", "spacer_mid", "wallpaper", "clock", "workspaces" ]
     concave_edge_corners = false
-    end = [ "cpu", "temp", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "Lock", "session" ]
-    margin_ends = 250
+    end = [ "group:g1", "spacer_right", "tray", "group:g4", "group:g3", "volume", "Lock", "session" ]
+    margin_ends = 0
     scale = 1.1000000089406967
-    start = [ "launcher", "wallpaper", "workspaces", "media" ]
+    start = [ "launcher", "active_window" ]
 
         [bar.MainBar.dead_zone.actions]
-        middle = "desktop-widgets-edit"
+        middle = "desktop-widgets-toggle-edit"
         scroll_down = "exec niri msg action focus-column-right-or-first"
         scroll_up = "exec niri msg action focus-column-left-or-last"
 
         [bar.MainBar.monitor.HDMI-A-1]
         enabled = false
+
+        [[bar.MainBar.capsule_group]]
+        border = "on_hover"
+        enabled = true
+        fill = "on_hover"
+        id = "g1"
+        members = [ "cpu", "temp" ]
+        opacity = 0.75
+        padding = 6.0
+
+        [[bar.MainBar.capsule_group]]
+        border = "on_hover"
+        enabled = true
+        fill = "on_hover"
+        id = "g3"
+        members = [ "network", "bluetooth" ]
+        opacity = 0.75
+        padding = 6.0
+
+        [[bar.MainBar.capsule_group]]
+        border = "on_hover"
+        enabled = true
+        fill = "on_hover"
+        id = "g4"
+        members = [ "notifications", "clipboard" ]
+        opacity = 0.75
+        padding = 6.0
+
+    [bar.SideBar]
+    background_opacity = 0.0
+    border = "primary"
+    border_width = 0.0
+    capsule = true
+    capsule_fill = "on_hover"
+    center = [ "workspaces", "clock", "spacer_tv", "media" ]
+    concave_edge_corners = false
+    enabled = true
+    end = [ "group:g1" ]
+    margin_ends = 0
+    scale = 1.1000000089406967
+    start = []
+    thickness = 23
+
+        [bar.SideBar.dead_zone.actions]
+        middle = "desktop-widgets-toggle-edit"
+        scroll_down = "exec niri msg action focus-column-right-or-first"
+        scroll_up = "exec niri msg action focus-column-left-or-last"
+
+        [bar.SideBar.monitor.DP-1]
+        enabled = false
+
+        [[bar.SideBar.capsule_group]]
+        enabled = true
+        fill = "on_hover"
+        id = "g1"
+        members = [ "cpu", "temp" ]
+        opacity = 1.0
+        padding = 6.0
 
 [control_center]
 hidden_tabs = [ "monitor" ]
@@ -48,15 +111,15 @@ widget_order = [
     "desktop-widget-0000000000000001",
     "desktop-widget-0000000000000004",
     "desktop-widget-0000000000000005",
-    "desktop-widget-0000000000000006",
-    "desktop-widget-0000000000000007",
     "desktop-widget-000000000000000a",
     "desktop-widget-000000000000000b",
-    "desktop-widget-000000000000000c"
+    "desktop-widget-000000000000000c",
+    "desktop-widget-000000000000000d",
+    "desktop-widget-000000000000000e"
 ]
 
     [desktop_widgets.grid]
-    cell_size = 16
+    cell_size = 8
     major_interval = 4
     visible = true
 
@@ -194,6 +257,41 @@ widget_order = [
         shadow = true
         show_forecast = true
 
+    [desktop_widgets.widget.desktop-widget-000000000000000d]
+    box_height = 120.0
+    box_width = 392.0
+    cx = 1116.0
+    cy = 692.0
+    output = "HDMI-A-1"
+    rotation = 0.0
+    type = "media_player"
+
+        [desktop_widgets.widget.desktop-widget-000000000000000d.settings]
+        background = false
+        hide_when_no_media = true
+        layout = "horizontal"
+        shadow = true
+
+    [desktop_widgets.widget.desktop-widget-000000000000000e]
+    box_height = 224.0
+    box_width = 208.0
+    cx = 1554.59375
+    cy = 784.40625
+    output = "DP-1"
+    rotation = 0.0
+    type = "fancy_audio_visualizer"
+
+        [desktop_widgets.widget.desktop-widget-000000000000000e.settings]
+        background = false
+        bar_width = 0.90000000000000013
+        bloom_intensity = 0.45000000000000001
+        inner_diameter = 0.75
+        primary_color = "tertiary"
+        ring_opacity = 0.5
+        secondary_color = "on_tertiary"
+        sensitivity = 0.80000000000000004
+        visualization_mode = "bars_rings"
+
 [dock]
 auto_hide = false
 background_opacity = 0.0
@@ -208,7 +306,7 @@ show_instance_count = false
 smart_auto_hide = true
 
 [hot_corners]
-enabled = true
+enabled = false
 
 [idle]
 behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
@@ -262,7 +360,7 @@ widget_order = [
     visible = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
-    box_height = 103.0
+    box_height = 70.0
     box_width = 240.0
     cx = 600.0
     cy = 508.0
@@ -283,10 +381,11 @@ widget_order = [
         show_login_button = false
         show_media = true
         show_session_buttons = true
+        show_unlock_hint = false
         show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
-    box_height = 103.0
+    box_height = 70.0
     box_width = 240.0
     cx = 408.0
     cy = 368.0
@@ -308,6 +407,7 @@ widget_order = [
         show_login_button = false
         show_media = true
         show_session_buttons = true
+        show_unlock_hint = true
         show_weather = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
@@ -491,16 +591,16 @@ widget_order = [
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000011.settings]
         background = false
-        bar_width = 0.20000000000000001
+        bar_width = 0.90000000000000013
         bloom_intensity = 0.5
         fade_when_idle = true
-        inner_diameter = 1.0
+        inner_diameter = 0.80000000000000004
         primary_color = "primary"
-        ring_opacity = 1.0
-        rotation_speed = 0.30000000000000004
+        ring_opacity = 0.5
+        rotation_speed = 0.59999999999999998
         secondary_color = "secondary"
-        sensitivity = 1.3
-        visualization_mode = "all"
+        sensitivity = 0.80000000000000004
+        visualization_mode = "bars_rings"
         wave_thickness = 0.29999999999999999
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000012]
@@ -532,15 +632,15 @@ widget_order = [
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000013.settings]
         background = false
-        bar_width = 0.20000000000000001
+        bar_width = 0.90000000000000013
         fade_when_idle = true
-        inner_diameter = 1.0
-        primary_color = "primary"
-        ring_opacity = 1.0
-        rotation_speed = 0.30000000000000004
-        secondary_color = "secondary"
-        sensitivity = 1.3
-        visualization_mode = "all"
+        inner_diameter = 0.80000000000000004
+        primary_color = "secondary"
+        ring_opacity = 0.5
+        rotation_speed = 0.59999999999999998
+        secondary_color = "primary"
+        sensitivity = 0.80000000000000004
+        visualization_mode = "bars_rings"
         wave_thickness = 0.29999999999999999
 
 [nightlight]
@@ -569,6 +669,7 @@ enabled = []
 [shell]
 niri_overview_type_to_launch_enabled = true
 password_style = "random"
+polkit_agent = true
 screen_time_enabled = true
 settings_show_advanced = true
 telemetry_enabled = true
@@ -593,10 +694,10 @@ gpu_poll_seconds = 5
 
 [theme]
 builtin = "Ayu"
-community_palette = "Catppuccin Macchiato Pink"
+community_palette = "Catppuccin Mocha Pink"
 mode = "dark"
 source = "community"
-wallpaper_scheme = "soft"
+wallpaper_scheme = "faithful"
 
     [theme.templates]
     builtin_ids = [ "gtk3", "gtk4", "ghostty", "kcolorscheme", "niri", "qt", "starship" ]
@@ -619,10 +720,10 @@ transition_on_startup = true
     path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
 
     [[wallpaper.favorite]]
-    community_palette = "Catppuccin Macchiato Pink"
-    palette_source = "community"
+    palette_source = "wallpaper"
     path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
     theme_mode = "dark"
+    wallpaper_scheme = "faithful"
 
 [widget.Lock]
 capsule = true
@@ -636,6 +737,7 @@ type = "custom_button"
     right = "exec noctalia msg session lock_and_suspend"
 
 [widget.clock]
+anchor = true
 font_weight = 1000
 scale = 1.1000000000000001
 
@@ -645,18 +747,23 @@ glyph = "cpu-temperature"
 stat = "cpu_temp"
 
 [widget.launcher]
+capsule = true
+capsule_border = "on_primary"
+capsule_opacity = 0.75
 color = "tertiary"
 custom_image = "/usr/share/noctalia/assets/noctalia.svg"
 scale = 1.5
 
 [widget.media]
 capsule_border = "error"
+hide_album_art = true
 hide_when_no_media = true
+scroll_repeat = "steps"
 title_scroll = "on_hover"
 
     [widget.media.actions]
-    scroll_down = "exec ~/.local/bin/spotify-volume down"
-    scroll_up = "exec ~/.local/bin/spotify-volume up"
+    scroll_down = "exec ~/.local/bin/spotify-volume.sh down"
+    scroll_up = "exec ~/.local/bin/spotify-volume.sh up"
 
 [widget.network]
 show_label = false
@@ -667,6 +774,18 @@ color = "error"
 
     [widget.session.actions]
     right = "exec noctalia msg session shutdown"
+
+[widget.spacer_mid]
+length = 230
+type = "spacer"
+
+[widget.spacer_right]
+length = 140
+type = "spacer"
+
+[widget.spacer_tv]
+length = 140
+type = "spacer"
 
 [widget.sysmon]
 display = "text"
