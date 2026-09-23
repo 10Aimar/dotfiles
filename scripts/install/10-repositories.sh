@@ -1,19 +1,24 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-# 1. Enable required COPR repos
-# -----------------------------
-echo "==> Enabling COPR repositories..."
-# starship isn't in Fedora's default repos
-sudo dnf copr enable -y atim/starship
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 
-# -----------------------------
-# 1b. Enable Terra repo (for ghostty)
-# -----------------------------
-# ghostty has no official Fedora package yet. Using Terra instead of a
-# single-maintainer COPR since it also provides ghostty-kio (Dolphin
-# integration).
-echo "==> Enabling Terra repository..."
-sudo dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+source "$REPO_DIR/scripts/lib/profile.sh"
 
-# -----------------------------
+: "${DOTFILES_PROFILE:?DOTFILES_PROFILE must be set by the installer}"
+
+echo "==> Configuring repositories for profile: $DOTFILES_PROFILE"
+
+if resolve_profile "$DOTFILES_PROFILE" | grep -Fxq 'starship'; then
+    echo "==> Enabling Starship COPR..."
+    sudo dnf copr enable -y atim/starship
+fi
+
+if resolve_profile "$DOTFILES_PROFILE" | grep -Fxq 'ghostty'; then
+    echo "==> Enabling Terra repository..."
+    sudo dnf install -y \
+        --nogpgcheck \
+        --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' \
+        terra-release
+fi
