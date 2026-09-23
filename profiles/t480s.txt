@@ -1,0 +1,5 @@
+profiles/minimal-niri.txt
+packages/hardware-services.txt
+packages/shell.txt
+packages/workstation.txt
+packages/multimedia.txt

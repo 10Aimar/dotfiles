@@ -1,0 +1,5 @@
+packages/base.txt
+packages/niri.txt
+packages/noctalia.txt
+packages/session.txt
+packages/shell.txt

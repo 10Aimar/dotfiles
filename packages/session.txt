@@ -1,0 +1,10 @@
+pipewire
+pipewire-pulseaudio
+wireplumber
+dbus-broker
+polkit
+polkit-kde
+xdg-desktop-portal
+xdg-desktop-portal-gtk
+xdg-desktop-portal-gnome
+gnome-keyring

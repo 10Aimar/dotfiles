@@ -1,0 +1,6 @@
+konsole
+ghostty
+ghostty-kio
+qt6ct
+dolphin
+kdeconnectd
