@@ -31,10 +31,11 @@ window-rule {
 
 // Spotify always opens on the left monitor (Samsung TV).
 window-rule {
-    match app-id="spotify"
-    open-on-output "HDMI-A-1"
-    open-maximized true
+     match app-id="spotify"
+     open-on-output "HDMI-A-1"
+     open-maximized true
 }
+
 // Firefox tilled
 window-rule {
     match app-id=r#"firefox$"#
@@ -43,15 +44,24 @@ window-rule {
 
 // VRR for Steam Games
 window-rule {
-    match app-id="steam_app_"
+    match app-id=r#"^steam_app_[0-9]+$"#
     variable-refresh-rate true
 }
 
-//n Hearthstone
+//- Hearthstone
 window-rule {
-    match app-id="steam_app_4096950636"
+    match app-id="steam_app_default" title="Hearthstone"
     open-maximized true
+    variable-refresh-rate true
 }
+
+window-rule {
+    match app-id="steam_app_default" title="Battle.net"
+    default-floating-position x=210 y=43 relative-to="top-right"
+    open-floating true
+    open-focused false
+}
+//-
 
 //  Netflix - Brave PWA
 window-rule {
@@ -62,6 +72,7 @@ window-rule {
 // NOS TV - Brave PWA
 window-rule {
     match app-id="brave-pnghkaloolpocgfpndmjfbhpjffdmdii-Default"
+    open-on-output "HDMI-A-1"
     open-maximized true
 }
 

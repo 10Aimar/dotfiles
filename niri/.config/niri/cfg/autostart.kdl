@@ -1,0 +1,38 @@
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+
+// For KDE apps to follow noctalia theme colours
+environment {
+    QT_QPA_PLATFORMTHEME "qt6ct"
+}
+
+// This line starts waybar, a commonly used bar for Wayland compositors.
+//spawn-at-startup "waybar"
+
+// 4 Kwallet seemless login
+spawn-at-startup "/usr/libexec/pam_kwallet_init"
+
+// Noctalia V5
+spawn-at-startup "noctalia"
+
+// Daemon 4 tray compatibility 4 battle net
+spawn-at-startup "xembedsniproxy"
+
+//Syncathing -command4tray: flatpak override --user --env=XDG_CURRENT_DESKTOP=KDE com.github.zocker_160.SyncThingy
+spawn-at-startup "flatpak" "run" "--command=SyncThingy" "com.github.zocker_160.SyncThingy"
+
+// Spotify
+spawn-sh-at-startup "sleep 8 && flatpak run com.spotify.Client --minimized"
+
+// Steam
+spawn-sh-at-startup "sleep 4 && /usr/bin/steam -silent"
+
+// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
+// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+
+hotkey-overlay {
+    // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
+    skip-at-startup
+}

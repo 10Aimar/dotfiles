@@ -165,41 +165,11 @@ layout {
     }
 }
 
-// Add lines like this to spawn processes at startup.
-// Note that running niri as a session supports xdg-desktop-autostart,
-// which may be more convenient to use.
-// See the binds section below for more spawn examples.
+// Startup
+include "cfg/autostart.kdl"
 
-// For KDE apps to follow noctalia theme colours
-environment {
-    QT_QPA_PLATFORMTHEME "qt6ct"
-}
 
-// This line starts waybar, a commonly used bar for Wayland compositors.
-//spawn-at-startup "waybar"
 
-// Noctalia V4
-// spawn-at-startup "qs" "-c" "noctalia-shell"
-
-// 4 Kwallet seemless login
-spawn-at-startup "/usr/libexec/pam_kwallet_init"
-
-// Noctalia V5
-spawn-at-startup "noctalia"
-
-//Syncathing -command4tray: flatpak override --user --env=XDG_CURRENT_DESKTOP=KDE com.github.zocker_160.SyncThingy 
-spawn-at-startup "flatpak" "run" "--command=SyncThingy" "com.github.zocker_160.SyncThingy"
-
-//Steam
-//spawn-sh-at-startup "sleep 3 && /usr/bin/steam -silent"
-
-// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
-
-hotkey-overlay {
-    // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
-    skip-at-startup
-}
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -248,8 +218,6 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    // Noctalia V4: Mod+D hotkey-overlay-title="Run an Application" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-    // Noctalia V4: Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -284,7 +252,11 @@ binds {
     Mod+O repeat=false { toggle-overview; }
 
     Mod+Q repeat=false { close-window; }
+
+    // My edit
     MouseBack cooldown-ms=250 { close-window; }
+    MouseForward cooldown-ms=250 { maximize-column; }
+    //
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
