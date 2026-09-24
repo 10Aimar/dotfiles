@@ -1,0 +1,3 @@
+config-profiles/minimal-niri.txt
+stow/shell.txt
+stow/workstation.txt
