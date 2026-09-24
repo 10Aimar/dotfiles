@@ -31,8 +31,11 @@ if printf '%s\n' "$PACKAGE_LIST" | grep -Fxq 'starship'; then
     sudo dnf copr enable -y atim/starship
 fi
 
-if printf '%s\n' "$PACKAGE_LIST" | grep -Fxq 'ghostty'; then
+if printf '%s\n' "$PACKAGE_LIST" |
+    grep -Eq '^(ghostty|noctalia-greeter)$'
+then
     echo "==> Enabling Terra repository..."
+
     sudo dnf install -y \
         --nogpgcheck \
         --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' \

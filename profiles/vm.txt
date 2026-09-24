@@ -3,3 +3,4 @@ packages/niri.txt
 packages/noctalia.txt
 packages/session.txt
 packages/shell.txt
+packages/greeter.txt

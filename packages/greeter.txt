@@ -1,0 +1,2 @@
+greetd
+noctalia-greeter

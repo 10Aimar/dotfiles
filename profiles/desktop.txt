@@ -4,3 +4,4 @@ packages/shell.txt
 packages/workstation.txt
 packages/multimedia.txt
 packages/hardware/amd-gpu.txt
+packages/greeter.txt

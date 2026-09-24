@@ -3,3 +3,4 @@ packages/hardware-services.txt
 packages/shell.txt
 packages/workstation.txt
 packages/multimedia.txt
+packages/greeter.txt
