@@ -31,6 +31,7 @@ if [[ $# -eq 2 && "$1" == "--profile" ]]; then
     SELECTED_PROFILE="$2"
 
 elif [[ $# -eq 0 ]]; then
+    PS3='Select profile [1-4]: '
     printf '%s\n' "Select installation profile:" >&2
     printf '\n' >&2
 
