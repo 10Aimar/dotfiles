@@ -10,19 +10,19 @@ source "$REPO_DIR/scripts/lib/config-profile.sh"
 
 echo "==> Resolving configuration profile: $DOTFILES_PROFILE"
 
-mapfile -t STOW_PACKAGES < <(
+mapfile -t RESOLVED_STOW_PACKAGES < <(
     resolve_config_profile "$DOTFILES_PROFILE"
 )
 
-if ((${#STOW_PACKAGES[@]} == 0)); then
+if ((${#RESOLVED_STOW_PACKAGES[@]} == 0)); then
     echo "==> No Stow packages selected; skipping."
     exit 0
 fi
 
-printf '==> Stowing: %s\n' "${STOW_PACKAGES[*]}"
+printf '==> Stowing: %s\n' "${RESOLVED_STOW_PACKAGES[*]}"
 
 cd "$REPO_DIR"
 
-stow "${STOW_PACKAGES[@]}"
+stow "${RESOLVED_STOW_PACKAGES[@]}"
 
 echo "✓ Dotfiles linked."
