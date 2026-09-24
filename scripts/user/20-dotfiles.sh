@@ -1,20 +1,28 @@
 #!/usr/bin/env bash
-set -e
-# 12. Clone dotfiles repo (skip if already here, e.g. running locally)
-# -----------------------------
-DOTFILES_DIR="$HOME/dotfiles"
+set -euo pipefail
 
-if [ ! -d "$DOTFILES_DIR/.git" ]; then
-    echo "==> Cloning dotfiles repo..."
-    git clone https://github.com/10Aimar/dotfiles.git "$DOTFILES_DIR"
-else
-    echo "==> Dotfiles repo already present at $DOTFILES_DIR, skipping clone."
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
+
+source "$REPO_DIR/scripts/lib/config-profile.sh"
+
+: "${DOTFILES_PROFILE:?DOTFILES_PROFILE must be set by the installer}"
+
+echo "==> Resolving configuration profile: $DOTFILES_PROFILE"
+
+mapfile -t STOW_PACKAGES < <(
+    resolve_config_profile "$DOTFILES_PROFILE"
+)
+
+if ((${#STOW_PACKAGES[@]} == 0)); then
+    echo "==> No Stow packages selected; skipping."
+    exit 0
 fi
 
-# -----------------------------
-# 13. Symlink configs with stow
-# -----------------------------
-echo "==> Stowing dotfiles..."
-cd "$DOTFILES_DIR"
-stow zsh starship konsole ghostty niri noctalia
+printf '==> Stowing: %s\n' "${STOW_PACKAGES[*]}"
+
+cd "$REPO_DIR"
+
+stow "${STOW_PACKAGES[@]}"
+
 echo "✓ Dotfiles linked."
