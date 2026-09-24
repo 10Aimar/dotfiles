@@ -1,47 +1,46 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-# 2. Install packages
-# -----------------------------
-echo "==> Installing packages..."
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 
-# --setopt=install_weak_deps=False on niri specifically, since noctalia
-# already provides the launcher/bar functionality niri would otherwise
-# pull in (alacritty, fuzzel, waybar, swaylock) as weak/recommended deps.
-# niri itself is in Fedora's official repos as of F44 - no COPR needed.
-sudo dnf install -y --setopt=install_weak_deps=False niri
+source "$REPO_DIR/scripts/lib/profile.sh"
 
-sudo dnf install -y \
-    git \
-    gh \
-    stow \
-    which \
-    zsh \
-    starship \
-    noctalia \
-    konsole \
-    ghostty \
-    ghostty-kio \
-    qt6ct \
-    dolphin \
-    kdeconnectd \
-    pipewire \
-    pipewire-pulseaudio \
-    wireplumber \
-    dbus-broker \
-    polkit \
-    seatd \
-    xdg-desktop-portal \
-    xdg-desktop-portal-wlr \
-    xdg-desktop-portal-gtk \
-    NetworkManager \
-    playerctl
+: "${DOTFILES_PROFILE:?DOTFILES_PROFILE must be set by the installer}"
 
-# NOTE: xwayland-satellite is intentionally NOT installed here.
-# It's only needed if you run legacy X11-only apps (niri auto-spawns
-# it on demand if it's present). OBS screen recording works fine
-# without it (uses PipeWire + xdg-desktop-portal instead).
-# To add it later if needed:
-#   sudo dnf install xwayland-satellite
+echo "==> Installing packages for profile: $DOTFILES_PROFILE"
 
-# -----------------------------
+PACKAGE_LIST="$(resolve_profile "$DOTFILES_PROFILE")"
+
+if [[ -z "$PACKAGE_LIST" ]]; then
+    printf 'ERROR: Profile resolved to an empty package set: %s\n' \
+        "$DOTFILES_PROFILE" >&2
+    exit 1
+fi
+
+mapfile -t PACKAGES <<< "$PACKAGE_LIST"
+
+NIRI_SELECTED=0
+OTHER_PACKAGES=()
+
+for package in "${PACKAGES[@]}"; do
+    [[ -n "$package" ]] || continue
+
+    if [[ "$package" == "niri" ]]; then
+        NIRI_SELECTED=1
+    else
+        OTHER_PACKAGES+=("$package")
+    fi
+done
+
+if (( NIRI_SELECTED )); then
+    echo "==> Installing Niri without weak dependencies..."
+    sudo dnf install -y \
+        --setopt=install_weak_deps=False \
+        niri
+fi
+
+if ((${#OTHER_PACKAGES[@]})); then
+    echo "==> Installing profile packages..."
+    sudo dnf install -y "${OTHER_PACKAGES[@]}"
+fi
