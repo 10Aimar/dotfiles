@@ -1,39 +1,73 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-# 3. RPM Fusion + full codecs
-# -----------------------------
-# Fedora ships without patent-encumbered codecs (H.264, HEVC, MP3
-# encoding, etc.) by default. RPM Fusion's free+nonfree repos provide
-# these, plus the full ffmpeg build and GStreamer plugins.
-echo "==> Enabling RPM Fusion..."
-sudo dnf install -y \
-    "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
-    "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
-sudo dnf install -y rpmfusion-free-appstream-data rpmfusion-nonfree-appstream-data
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 
-echo "==> Swapping to full ffmpeg and installing multimedia codecs..."
-sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
-# 'group install' (not 'update') since this is a minimal system where
-# the multimedia group was never installed in the first place.
-sudo dnf group install -y multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-sudo dnf group install -y sound-and-video
+source "$REPO_DIR/scripts/lib/profile.sh"
 
-# -----------------------------
-# 4. AMD hardware video acceleration
-# -----------------------------
-# Fedora's default Mesa VA/VDPAU drivers dropped H.264/HEVC decode
-# due to patent concerns. RPM Fusion's -freeworld builds restore it,
-# offloading video decode from CPU to GPU (RX 6700 XT here).
-echo "==> Installing AMD hardware video acceleration..."
-sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+: "${DOTFILES_PROFILE:?DOTFILES_PROFILE must be set by the installer}"
 
-# -----------------------------
-# 5. OpenH264 for Firefox
-# -----------------------------
-echo "==> Installing OpenH264 for Firefox..."
-sudo dnf install -y openh264 gstreamer1-plugin-openh264 mozilla-openh264
-sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+PACKAGE_LIST="$(resolve_profile "$DOTFILES_PROFILE")"
 
-# -----------------------------
+has_package() {
+    printf '%s\n' "$PACKAGE_LIST" | grep -Fxq "$1"
+}
+
+HAS_MULTIMEDIA=0
+HAS_AMD_GPU=0
+
+if has_package 'openh264'; then
+    HAS_MULTIMEDIA=1
+fi
+
+if has_package 'p7zip'; then
+    HAS_MULTIMEDIA=1
+fi
+
+if has_package 'mesa-va-drivers-freeworld'; then
+    HAS_AMD_GPU=1
+fi
+
+if (( ! HAS_MULTIMEDIA && ! HAS_AMD_GPU )); then
+    echo "==> No multimedia or GPU-specific packages selected; skipping."
+    exit 0
+fi
+
+if (( HAS_MULTIMEDIA )); then
+    echo "==> Installing multimedia support..."
+
+    echo "==> Replacing ffmpeg-free with RPM Fusion ffmpeg..."
+    sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
+
+    echo "==> Enabling Fedora Cisco OpenH264 repository..."
+    sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+
+    MULTIMEDIA_PACKAGES=()
+
+    while IFS= read -r package; do
+        [[ -z "$package" ]] && continue
+
+        case "$package" in
+            openh264|gstreamer1-plugin-openh264|mozilla-openh264|p7zip|p7zip-plugins|unrar|unzip|fuse|fuse-libs)
+                MULTIMEDIA_PACKAGES+=("$package")
+                ;;
+        esac
+    done <<< "$PACKAGE_LIST"
+
+    if ((${#MULTIMEDIA_PACKAGES[@]})); then
+        sudo dnf install -y "${MULTIMEDIA_PACKAGES[@]}"
+    fi
+fi
+
+if (( HAS_AMD_GPU )); then
+    echo "==> Installing AMD Freeworld video acceleration..."
+
+    sudo dnf swap -y \
+        mesa-va-drivers \
+        mesa-va-drivers-freeworld
+
+    sudo dnf swap -y \
+        mesa-vdpau-drivers \
+        mesa-vdpau-drivers-freeworld
+fi
