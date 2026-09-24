@@ -2,3 +2,4 @@ packages/base.txt
 packages/niri.txt
 packages/noctalia.txt
 packages/session.txt
+packages/greeter.txt

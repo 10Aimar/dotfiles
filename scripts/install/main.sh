@@ -81,11 +81,12 @@ for stage in "${STAGES[@]}"; do
     "$SCRIPT_DIR/$stage"
 done
 
+printf '\n==> Configuring Noctalia Greeter...\n'
+"$REPO_DIR/scripts/greeter/install.sh"
+
 printf '\n%s\n' "=================================================="
 printf '%s\n' " install.sh done!"
-printf '%s\n' ""
-printf '%s\n' " - Log out and back in for session/user-group changes"
-printf '%s\n' "   to take effect (or reboot)."
-printf '%s\n' " - For the graphical login screen, run:"
-printf '%s\n' "     ./install-greeter.sh"
 printf '%s\n' "=================================================="
+printf '%s\n' ""
+printf '%s\n' "The current session was left running."
+printf '%s\n' "Reboot to enter Noctalia Greeter."

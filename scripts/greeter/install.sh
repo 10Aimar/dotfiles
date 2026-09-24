@@ -1,131 +1,156 @@
 #!/usr/bin/env bash
-# Builds and installs noctalia-greeter from source, then wires it into
-# greetd. No Fedora package exists for this yet, so it must be compiled.
-#
-# Run this AFTER install.sh (needs niri + noctalia already installed to
-# be useful, though it will build fine on its own).
-#
-# Usage:
-#   ./install-greeter.sh
-#
-# Safe to re-run: re-building/re-installing is harmless. Editing
-# /etc/greetd/config.toml is skipped if it's already pointed at
-# noctalia-greeter-session, so this won't stomp on manual changes
-# you've made to that file since the last run.
+set -euo pipefail
 
-set -e
-
-GREETER_SRC="$HOME/noctalia-greeter"
 GREETD_CONF="/etc/greetd/config.toml"
+GREETER_SESSION="$(command -v noctalia-greeter-session || true)"
+SETUP_SCRIPT="/usr/share/noctalia-greeter/setup_greeter_system.sh"
 
 echo "=================================================="
-echo " noctalia-greeter build + greetd setup"
+echo " Noctalia Greeter setup"
 echo "=================================================="
 
-# -----------------------------
-# 1. Build dependencies
-# -----------------------------
-echo "==> Installing build dependencies..."
-sudo dnf install -y meson gcc-c++ just \
-  greetd dbus \
-  wayland-devel wayland-protocols-devel wlroots-devel \
-  libEGL-devel mesa-libGLES-devel \
-  freetype-devel fontconfig-devel \
-  cairo-devel pango-devel harfbuzz-devel \
-  libxkbcommon-devel glib2-devel \
-  tomlplusplus-devel json-devel stb_image_resize2-devel \
-  libwebp-devel librsvg2-devel
-
-# -----------------------------
-# 2. Avatar support
-# -----------------------------
-# noctalia-greeter reads each user's avatar via org.freedesktop.Accounts.
-# Without accounts-daemon running, the login picker just falls back to
-# a generic placeholder icon instead of your actual avatar.
-echo "==> Installing accountsservice (for login screen avatars)..."
-sudo dnf install -y accountsservice
-sudo systemctl enable --now accounts-daemon
-
-# -----------------------------
-# 3. Clone or update source
-# -----------------------------
-if [ -d "$GREETER_SRC/.git" ]; then
-    echo "==> noctalia-greeter source already present, pulling latest..."
-    git -C "$GREETER_SRC" pull
-else
-    echo "==> Cloning noctalia-greeter..."
-    git clone https://github.com/noctalia-dev/noctalia-greeter.git "$GREETER_SRC"
-fi
-cd "$GREETER_SRC"
-
-# -----------------------------
-# 4. Build and install
-# -----------------------------
-echo "==> Configuring release build..."
-just configure-release
-
-echo "==> Building (this can take a few minutes)..."
-just build-release
-
-echo "==> Installing compiled binaries..."
-sudo meson install -C build-release
-
-# -----------------------------
-# 5. State directory setup
-# -----------------------------
-# The project's own scripts/setup_greeter_system.sh has a bug where it
-# mis-parses the configured greetd user from debug log output, so we do
-# this step manually instead. Also handles the case where the greetd
-# user isn't literally named "greeter" (ours is "greetd", matching the
-# Fedora package's default /etc/greetd/config.toml).
-GREETD_USER="$(grep -E '^user' "$GREETD_CONF" | sed -E 's/user\s*=\s*"(.*)"/\1/')"
-if [ -z "$GREETD_USER" ]; then
-    echo "!! Could not detect greetd user from $GREETD_CONF, defaulting to 'greetd'"
-    GREETD_USER="greetd"
-fi
-echo "==> Preparing /var/lib/noctalia-greeter for user '$GREETD_USER'..."
-sudo mkdir -p /var/lib/noctalia-greeter
-sudo chown "$GREETD_USER:$GREETD_USER" /var/lib/noctalia-greeter
-
-# -----------------------------
-# 6. Point greetd at the greeter
-# -----------------------------
-SESSION_BIN="$(which noctalia-greeter-session)"
-if [ -z "$SESSION_BIN" ]; then
-    echo "!! noctalia-greeter-session not found on PATH after install, aborting."
+if [[ -z "$GREETER_SESSION" ]]; then
+    printf '%s\n' \
+        "ERROR: noctalia-greeter-session was not found." \
+        "Install the noctalia-greeter package first." >&2
     exit 1
 fi
 
-if grep -q "noctalia-greeter-session" "$GREETD_CONF"; then
-    echo "==> $GREETD_CONF already points at noctalia-greeter-session, leaving it as-is."
-else
-    echo "==> Backing up $GREETD_CONF..."
-    sudo cp "$GREETD_CONF" "$GREETD_CONF.bak.$(date +%Y%m%d%H%M%S)"
-
-    echo "==> Updating command= line in $GREETD_CONF..."
-    sudo sed -i "s|^command = .*|command = \"$SESSION_BIN\"|" "$GREETD_CONF"
+if [[ ! -f "$GREETD_CONF" ]]; then
+    printf 'ERROR: %s does not exist.\n' "$GREETD_CONF" >&2
+    printf '%s\n' "Install greetd first." >&2
+    exit 1
 fi
 
-# -----------------------------
-# 7. Enable greetd + graphical boot target
-# -----------------------------
-echo "==> Enabling greetd..."
+echo "==> Greeter session: $GREETER_SESSION"
+
+GREETER_USER="$(
+    awk '
+        /^\[default_session\]/ {
+            in_section=1
+            next
+        }
+
+        /^\[/ {
+            in_section=0
+        }
+
+        in_section && /^[[:space:]]*user[[:space:]]*=/ {
+            value=$0
+            sub(/^[^=]*=/, "", value)
+            gsub(/[[:space:]]|" /, "", value)
+            print value
+            exit
+        }
+    ' "$GREETD_CONF"
+)"
+
+if [[ -z "$GREETER_USER" ]]; then
+    if getent passwd greetd >/dev/null; then
+        GREETER_USER="greetd"
+    elif getent passwd greeter >/dev/null; then
+        GREETER_USER="greeter"
+    else
+        printf '%s\n' \
+            "ERROR: Could not determine a greetd session user." >&2
+        exit 1
+    fi
+fi
+
+echo "==> greetd session user: $GREETER_USER"
+
+echo "==> Backing up greetd configuration..."
+sudo cp "$GREETD_CONF" \
+    "$GREETD_CONF.bak.$(date +%Y%m%d%H%M%S)"
+
+echo "==> Configuring greetd default session..."
+
+sudo python3 - "$GREETD_CONF" "$GREETER_SESSION" "$GREETER_USER" <<'PY'
+from pathlib import Path
+import re
+import sys
+
+path = Path(sys.argv[1])
+command = sys.argv[2]
+user = sys.argv[3]
+
+text = path.read_text()
+
+pattern = re.compile(
+    r"(?ms)^\[default_session\]\n.*?(?=^\[|\Z)"
+)
+
+match = pattern.search(text)
+
+if match:
+    section = match.group(0)
+
+    if re.search(r"(?m)^\s*command\s*=", section):
+        section = re.sub(
+            r"(?m)^\s*command\s*=.*$",
+            f'command = "{command}"',
+            section,
+            count=1,
+        )
+    else:
+        section = (
+            "[default_session]\n"
+            f'command = "{command}"\n'
+            + section[len("[default_session]\n"):]
+        )
+
+    if not re.search(r"(?m)^\s*user\s*=", section):
+        section += f'user = "{user}"\n'
+
+    text = text[:match.start()] + section + text[match.end():]
+
+else:
+    if text and not text.endswith("\n"):
+        text += "\n"
+
+    text += (
+        "\n[default_session]\n"
+        f'command = "{command}"\n'
+        f'user = "{user}"\n'
+    )
+
+path.write_text(text)
+PY
+
+if [[ -x "$SETUP_SCRIPT" ]]; then
+    echo "==> Running Noctalia Greeter system setup..."
+    sudo "$SETUP_SCRIPT"
+else
+    echo "WARNING: Noctalia Greeter setup helper not found."
+    echo "         Continuing without it."
+fi
+
+CURRENT_DM="$(
+    systemctl show \
+        -p Id \
+        --value \
+        display-manager.service 2>/dev/null || true
+)"
+
+if [[ -n "$CURRENT_DM" && "$CURRENT_DM" != "greetd.service" ]]; then
+    echo "==> Current display manager: $CURRENT_DM"
+    echo "==> Disabling it for the next boot..."
+
+    sudo systemctl disable "$CURRENT_DM"
+else
+    echo "==> No other display manager needs disabling."
+fi
+
+echo "==> Enabling greetd for the next boot..."
 sudo systemctl enable greetd
 
-echo "==> Setting default boot target to graphical.target..."
-# greetd's unit is pulled in by graphical.target. On a minimal/Custom
-# Fedora install this is usually still set to multi-user.target
-# (text boot) since no desktop environment was selected at install time.
+echo "==> Ensuring graphical.target is the default..."
 sudo systemctl set-default graphical.target
 
+echo
 echo "=================================================="
-echo " Done! Reboot to land on the noctalia-greeter"
-echo " login screen:"
-echo "     sudo reboot"
-echo ""
-echo " Optional: set a default user (skip the user list,"
-echo " go straight to password) by adding to"
-echo " /var/lib/noctalia-greeter/greeter.toml:"
-echo "     [user]"
-echo "     default = \"$USER\""
+echo " Noctalia Greeter configured."
 echo "=================================================="
+echo
+echo "The current graphical session was NOT stopped."
+echo "After reboot, greetd should provide the Noctalia login screen."
