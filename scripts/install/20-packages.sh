@@ -18,12 +18,12 @@ if [[ -z "$PACKAGE_LIST" ]]; then
     exit 1
 fi
 
-mapfile -t PACKAGES <<< "$PACKAGE_LIST"
+mapfile -t RESOLVED_PACKAGES <<< "$PACKAGE_LIST"
 
 NIRI_SELECTED=0
 OTHER_PACKAGES=()
 
-for package in "${PACKAGES[@]}"; do
+for package in "${RESOLVED_PACKAGES[@]}"; do
     [[ -n "$package" ]] || continue
 
     if [[ "$package" == "niri" ]]; then
