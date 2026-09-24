@@ -41,7 +41,7 @@ elif [[ $# -eq 0 ]]; then
         fi
 
         printf '%s\n' "Invalid selection. Choose one of the numbers above." >&2
-    done
+    done < /dev/tty
 
 else
     printf 'Usage: %s [--profile NAME]\n' "$0" >&2
