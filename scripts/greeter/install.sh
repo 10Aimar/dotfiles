@@ -125,20 +125,31 @@ else
     echo "         Continuing without it."
 fi
 
-CURRENT_DM="$(
+CURRENT_DM_STATE="$(
     systemctl show \
-        -p Id \
+        -p LoadState \
         --value \
         display-manager.service 2>/dev/null || true
 )"
 
-if [[ -n "$CURRENT_DM" && "$CURRENT_DM" != "greetd.service" ]]; then
-    echo "==> Current display manager: $CURRENT_DM"
-    echo "==> Disabling it for the next boot..."
+if [[ "$CURRENT_DM_STATE" == "loaded" ]]; then
+    CURRENT_DM="$(
+        systemctl show \
+            -p Id \
+            --value \
+            display-manager.service 2>/dev/null || true
+    )"
 
-    sudo systemctl disable "$CURRENT_DM"
+    if [[ -n "$CURRENT_DM" && "$CURRENT_DM" != "greetd.service" ]]; then
+        echo "==> Current display manager: $CURRENT_DM"
+        echo "==> Disabling it for the next boot..."
+
+        sudo systemctl disable "$CURRENT_DM"
+    else
+        echo "==> No other display manager needs disabling."
+    fi
 else
-    echo "==> No other display manager needs disabling."
+    echo "==> No existing display manager is configured."
 fi
 
 echo "==> Enabling greetd for the next boot..."
