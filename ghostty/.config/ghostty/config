@@ -1,6 +1,5 @@
 command = /bin/zsh
 
-theme = noctalia
 
 #background = 033e36
 background-opacity = 0.50
@@ -11,3 +10,4 @@ font-style = Medium
 
 
 
+theme = noctalia

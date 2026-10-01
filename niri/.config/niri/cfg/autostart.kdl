@@ -3,13 +3,15 @@
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-// For KDE apps to follow noctalia theme colours
-environment {
-    QT_QPA_PLATFORMTHEME "qt6ct"
-}
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 //spawn-at-startup "waybar"
+
+// Workspaces setup
+workspace ""
+workspace ""
+workspace ""
+spawn-at-startup "niri" "msg" "action" "focus-workspace" ""
 
 // 4 Kwallet seemless login
 spawn-at-startup "/usr/libexec/pam_kwallet_init"
@@ -18,16 +20,17 @@ spawn-at-startup "/usr/libexec/pam_kwallet_init"
 spawn-at-startup "noctalia"
 
 // Daemon 4 tray compatibility 4 battle net
-spawn-at-startup "xembedsniproxy"
+// spawn-at-startup "xembedsniproxy"
 
 //Syncathing -command4tray: flatpak override --user --env=XDG_CURRENT_DESKTOP=KDE com.github.zocker_160.SyncThingy
-spawn-at-startup "flatpak" "run" "--command=SyncThingy" "com.github.zocker_160.SyncThingy"
+// already on kde //spawn-at-startup "flatpak" "run" "--command=SyncThingy" "com.github.zocker_160.SyncThingy" "--no-browser"
 
 // Spotify
-spawn-sh-at-startup "sleep 8 && flatpak run com.spotify.Client --minimized"
+
+spawn-sh-at-startup "sleep 4 && flatpak run com.spotify.Client"
 
 // Steam
-spawn-sh-at-startup "sleep 4 && /usr/bin/steam -silent"
+spawn-sh-at-startup "sleep 10 && /usr/bin/steam -silent"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"

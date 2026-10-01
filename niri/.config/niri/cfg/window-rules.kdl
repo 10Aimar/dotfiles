@@ -32,8 +32,10 @@ window-rule {
 // Spotify always opens on the left monitor (Samsung TV).
 window-rule {
      match app-id="spotify"
-     open-on-output "HDMI-A-1"
+     // open-on-output "HDMI-A-1"
+     open-on-workspace ""
      open-maximized true
+     open-focused false
 }
 
 // Firefox tilled
@@ -51,13 +53,14 @@ window-rule {
 //- Hearthstone
 window-rule {
     match app-id="steam_app_default" title="Hearthstone"
+    open-on-workspace ""
     open-maximized true
     variable-refresh-rate true
 }
 
 window-rule {
     match app-id="steam_app_default" title="Battle.net"
-    default-floating-position x=210 y=43 relative-to="top-right"
+    default-floating-position x=235 y=15 relative-to="top-right"
     open-floating true
     open-focused false
 }
@@ -66,13 +69,15 @@ window-rule {
 //  Netflix - Brave PWA
 window-rule {
     match app-id="brave-eppojlglocelodeimnohnlnionkobfln-Default"
+    open-on-workspace ""
     open-maximized true
 }
 
 // NOS TV - Brave PWA
 window-rule {
     match app-id="brave-pnghkaloolpocgfpndmjfbhpjffdmdii-Default"
-    open-on-output "HDMI-A-1"
+    open-on-workspace ""
+    // open-on-output "HDMI-A-1"
     open-maximized true
 }
 
@@ -85,5 +90,6 @@ window-rule {
 // Stremio
 window-rule {
     match app-id="com.stremio.Stremio"
+    open-on-workspace "▷"
     open-maximized true
 }

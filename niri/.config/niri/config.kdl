@@ -3,6 +3,11 @@
 // Check the wiki for a full description of the configuration:
 // https://niri-wm.github.io/niri/Configuration:-Introduction
 
+// For KDE apps to follow noctalia theme colours
+environment {
+    QT_QPA_PLATFORMTHEME "qt6ct"
+}
+
 //Input
 include "cfg/inputs.kdl"
 
