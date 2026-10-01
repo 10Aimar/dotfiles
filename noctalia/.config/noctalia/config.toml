@@ -9,12 +9,12 @@ order = [ "MainBar", "SideBar" ]
     capsule_border = "#07081B"
     capsule_fill = "#07081B"
     capsule_opacity = 0.69999998435378075
-    center = [ "active_window", "spacer_mid", "wallpaper", "clock", "workspaces" ]
+    center = [ "group:g6", "spacer_mid", "wallpaper", "clock", "workspaces" ]
     concave_edge_corners = false
     end = [ "group:g4", "group:g1", "spacer_right", "tray", "group:g2", "group:g3", "volume", "Lock", "session" ]
     margin_ends = 0
     scale = 1.1000000089406967
-    start = [ "launcher", "media" ]
+    start = [ "launcher", "group:g5" ]
 
         [bar.MainBar.dead_zone.actions]
         middle = "desktop-widgets-toggle-edit"
@@ -68,6 +68,28 @@ order = [ "MainBar", "SideBar" ]
         fill = "#07081B"
         id = "g4"
         members = [ "RAM", "CPU" ]
+        opacity = 0.69999998807907104
+        padding = 6.0
+
+        [[bar.MainBar.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "#07081B"
+        enabled = true
+        fill = "#07081B"
+        id = "g5"
+        members = [ "Musik", "media" ]
+        opacity = 0.69999998807907104
+        padding = 6.0
+
+        [[bar.MainBar.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "#07081B"
+        enabled = true
+        fill = "#07081B"
+        id = "g6"
+        members = [ "mywindow", "active_window" ]
         opacity = 0.69999998807907104
         padding = 6.0
 
@@ -377,6 +399,11 @@ type = "custom_button"
     left = "exec noctalia msg session lock"
     right = "exec noctalia msg session lock_and_suspend"
 
+[widget.Musik]
+custom_image_colorize = true
+glyph = "brand-spotify-filled"
+type = "custom_button"
+
 [widget.RAM]
 interactive = false
 show_glyph = false
@@ -420,6 +447,11 @@ title_scroll = "on_hover"
     [widget.media.actions]
     scroll_down = "exec ~/.local/bin/spotify-volume.sh down"
     scroll_up = "exec ~/.local/bin/spotify-volume.sh up"
+
+[widget.mywindow]
+custom_image_colorize = true
+glyph = "align-box-left-stretch"
+type = "custom_button"
 
 [widget.network]
 show_label = false
