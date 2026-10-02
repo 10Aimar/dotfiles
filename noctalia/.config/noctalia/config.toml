@@ -9,12 +9,12 @@ order = [ "MainBar", "SideBar" ]
     capsule_border = "#07081B"
     capsule_fill = "#07081B"
     capsule_opacity = 0.69999998435378075
-    center = [ "group:g6", "spacer_mid", "wallpaper", "clock", "workspaces" ]
+    center = [ "group:g6", "clock", "workspaces" ]
     concave_edge_corners = false
     end = [ "group:g4", "group:g1", "spacer_right", "tray", "group:g2", "group:g3", "volume", "Lock", "session" ]
     margin_ends = 0
     scale = 1.1000000089406967
-    start = [ "launcher", "group:g5" ]
+    start = [ "launcher", "wallpaper", "group:g5" ]
 
         [bar.MainBar.dead_zone.actions]
         middle = "desktop-widgets-toggle-edit"
@@ -78,7 +78,7 @@ order = [ "MainBar", "SideBar" ]
         enabled = true
         fill = "#07081B"
         id = "g5"
-        members = [ "Musik", "media" ]
+        members = [ "Musik", "media", "Music" ]
         opacity = 0.69999998807907104
         padding = 6.0
 
@@ -89,7 +89,7 @@ order = [ "MainBar", "SideBar" ]
         enabled = true
         fill = "#07081B"
         id = "g6"
-        members = [ "mywindow", "active_window" ]
+        members = [ "active_window", "mywindow" ]
         opacity = 0.69999998807907104
         padding = 6.0
 
@@ -280,7 +280,7 @@ temperature_night = 3000
 monitors = [ "HDMI-A-1" ]
 
 [plugins]
-enabled = [ "oldirtty/color_picker" ]
+enabled = []
 
     [[plugins.source]]
     kind = "git"
@@ -293,6 +293,7 @@ enabled = [ "oldirtty/color_picker" ]
     name = "community"
 
 [shell]
+app_icon_color = "on_surface"
 niri_overview_type_to_launch_enabled = true
 password_style = "random"
 polkit_agent = true
@@ -399,6 +400,11 @@ type = "custom_button"
     left = "exec noctalia msg session lock"
     right = "exec noctalia msg session lock_and_suspend"
 
+[widget.Music]
+custom_image_colorize = true
+glyph = "music"
+type = "custom_button"
+
 [widget.Musik]
 custom_image_colorize = true
 glyph = "brand-spotify-filled"
@@ -428,18 +434,21 @@ show_glyph = false
 visualization = "none"
 
 [widget.launcher]
-capsule = true
+capsule = false
 capsule_border = "#07081B"
 capsule_opacity = 0.75
 color = "on_surface"
 custom_image = "/home/dockas/Pictures/icons/Scalable/fedoraSamon1.svg"
 custom_image_colorize = true
+enabled = true
 scale = 1.5
 
 [widget.media]
-capsule = true
+capsule = false
 capsule_border = "#07081B"
+capsule_opacity = 0.66000000000000003
 hide_album_art = true
+hide_artist = true
 hide_when_no_media = true
 scroll_repeat = "steps"
 title_scroll = "on_hover"
@@ -449,8 +458,9 @@ title_scroll = "on_hover"
     scroll_up = "exec ~/.local/bin/spotify-volume.sh up"
 
 [widget.mywindow]
+color = "tertiary"
 custom_image_colorize = true
-glyph = "align-box-left-stretch"
+glyph = "select"
 type = "custom_button"
 
 [widget.network]
@@ -519,8 +529,9 @@ type = "oldirtty/color_picker:widget"
 [widget.workspaces]
 capsule = true
 capsule_border = "#07081B"
+capsule_opacity = 0.70000000000000007
 empty_color = "shadow"
-focused_color = "on_hover"
+focused_color = "tertiary"
 hide_when_empty = true
 label_source = "name"
 max_label_chars = 3

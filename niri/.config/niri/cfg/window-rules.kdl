@@ -25,46 +25,84 @@ window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
 }
+//---------------------------------------------
 
+//      My Edits
 
-// --My Edits--
+//--Browsers--
 
-// Spotify always opens on the left monitor (Samsung TV).
-window-rule {
-     match app-id="spotify"
-     // open-on-output "HDMI-A-1"
-     open-on-workspace ""
-     open-maximized true
-     open-focused false
-}
-
-// Firefox tilled
+// Firefox
 window-rule {
     match app-id=r#"firefox$"#
     open-maximized true
+    open-on-workspace "󰖟"
 }
+
+// Brave
+window-rule {
+    match app-id="brave-browser"
+    open-maximized true
+    open-on-workspace "󰖟"
+}
+
+//---------------------------------------------
+
+//--KDE Apps--
+
+// Kwrite
+window-rule {
+    match app-id="org.kde.kwrite"
+    open-on-workspace ""
+}
+
+// Dolphin
+window-rule {
+    match app-id="org.kde.dolphin"
+    open-on-workspace ""
+}
+
+//---------------------------------------------
+
+//--Gaming--
 
 // VRR for Steam Games
 window-rule {
     match app-id=r#"^steam_app_[0-9]+$"#
+    open-on-workspace ""
     variable-refresh-rate true
-}
+    }
 
-//- Hearthstone
+// Hearthstone
 window-rule {
     match app-id="steam_app_default" title="Hearthstone"
-    open-on-workspace ""
+    open-on-workspace ""
     open-maximized true
     variable-refresh-rate true
 }
-
+// Battle.net
 window-rule {
     match app-id="steam_app_default" title="Battle.net"
     default-floating-position x=235 y=15 relative-to="top-right"
     open-floating true
     open-focused false
 }
-//-
+
+//---------------------------------------------
+
+//--Music--
+
+// Spotify always opens on the left monitor (Samsung TV).
+window-rule {
+     match app-id="spotify"
+     // open-on-output "HDMI-A-1"
+     open-on-workspace "󰝚"
+     open-maximized true
+     open-focused false
+}
+
+//---------------------------------------------
+
+//--TV Media--
 
 //  Netflix - Brave PWA
 window-rule {
@@ -81,15 +119,22 @@ window-rule {
     open-maximized true
 }
 
-// Thunderbird
-window-rule {
-    match app-id="net.thunderbird.Thunderbird"
-    open-maximized true
-}
-
 // Stremio
 window-rule {
     match app-id="com.stremio.Stremio"
-    open-on-workspace "▷"
+    open-on-workspace ""
     open-maximized true
 }
+
+//---------------------------------------------
+
+//-- Miscellaneous
+
+// Thunderbird
+window-rule {
+    match app-id="net.thunderbird.Thunderbird"
+    open-on-workspace ""
+    open-maximized true
+}
+
+//---------------------------------------------

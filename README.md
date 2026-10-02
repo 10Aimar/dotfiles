@@ -44,11 +44,3 @@ curl -fsSL https://raw.githubusercontent.com/10Aimar/dotfiles/main/bootstrap.sh 
 
 Installs git, clones this repo, then runs `install.sh` → `install-greeter.sh` → `post-install.sh` in sequence. Reboot when it finishes to land on the login screen.
 
-
-```
-
-## Multi-machine notes
-
-- `niri/cfg/outputs.kdl` is shared across machines — niri matches blocks by connector name and ignores ones that don't exist on the current machine, so desktop (`DP-1`, `HDMI-A-1`) and laptop (`eDP-1`) blocks coexist in the same file with no conflict
-- `noctalia/config.toml` currently has one desktop-specific hardcoded wallpaper path baked in from earlier manual edits — known limitation, not yet resolved for true multi-machine parity (deliberately left as-is for now)
-

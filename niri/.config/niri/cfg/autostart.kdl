@@ -8,10 +8,15 @@
 //spawn-at-startup "waybar"
 
 // Workspaces setup
+workspace "󰝚"
 workspace ""
-workspace ""
+workspace "" //""
+workspace "󰖟"
 workspace ""
-spawn-at-startup "niri" "msg" "action" "focus-workspace" ""
+workspace ""
+workspace "󰆍"
+
+spawn-at-startup "niri" "msg" "action" "focus-workspace" "󰖟"
 
 // 4 Kwallet seemless login
 spawn-at-startup "/usr/libexec/pam_kwallet_init"
@@ -39,3 +44,159 @@ hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
     skip-at-startup
 }
+
+// 🎮 Gaming
+//
+//     󰊗 — gamepad
+//
+//      — gamepad
+//
+//     󰺵 — joystick-ish / games
+//
+//     󰓓 — controller
+//
+//      — Steam
+//
+//     󰙯 — could work for gaming/social, depending on your setup
+//
+// 🎵 Music / media
+//
+//     󰝚 — music note
+//
+//     󰎈 — music
+//
+//      — headphones
+//
+//     󰓃 — speaker
+//
+//     󰕾 — volume/speaker
+//
+//      — audio
+//
+//     󰗲 — video/media
+//
+//      — film
+//
+//     󰟞 — movie
+//
+//      — play button
+//
+//     󰐊 — play
+//
+//     󰑈 — playlist
+//
+// 📺 General entertainment
+//
+//     󰐊 — playback
+//
+//      — video camera
+//
+//      — display/TV
+//
+//     󰟴 — television
+//
+//     󰗩 — cinema/movie
+//
+//     󰖏 — television
+//
+//      — microphone / recording
+//
+// 💻 Development / technical
+//
+//      — code
+//
+//      — code
+//
+//      — programming
+//
+//      — terminal
+//
+//     󰆍 — terminal
+//
+//     󰅩 — tools
+//
+//     󰒓 — settings/config
+//
+//     󰘳 — database
+//
+//     󰌛 — bug/debugging
+//
+//     󰏗 — package/build
+//
+// 🌐 Browsing / internet
+//
+//     󰖟 — web
+//
+//      — globe
+//
+//     󰇧 — network
+//
+//     󰒍 — browser-ish
+//
+//      — Firefox
+//
+//      — Chrome/Chromium
+//
+//      — web/dev
+//
+// 📁 Files / documents
+//
+//     󰉋 — folder
+//
+//      — folder
+//
+//     󰈙 — document
+//
+//      — document
+//
+//     󰈬 — file search
+//
+//     󰏢 — archive/storage
+//
+//     󰋩 — books/documents
+//
+// 💬 Communication
+//
+//     󰭹 — chat
+//
+//     󰍩 — chat/message
+//
+//      — speech bubble
+//
+//     󰙯 — Discord
+//
+//      — Discord
+//
+//     󰒱 — email
+//
+//      — mail
+//
+// A few complete schemes
+//
+// Activity-oriented:
+//
+//   Desktop
+//   Code
+//   Terminal
+// 󰊗  Gaming
+// 󰝚  Music
+//   Video
+// 󰭹  Chat
+//
+// Very minimal:
+//
+//   Desktop
+//   Dev
+// 󰊗  Games
+// 󰝚  Music
+//   Media
+// 󰭹  Chat
+//
+// More abstract/contextual:
+//
+//   General
+// 󰅩  Work
+// 󰊗  Play
+// 󰝚  Listen
+//   Watch
+// 󰭹  Social
