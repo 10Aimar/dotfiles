@@ -11,7 +11,7 @@ order = [ "MainBar", "SideBar" ]
     capsule_opacity = 0.69999998435378075
     center = [ "group:g6", "clock", "workspaces" ]
     concave_edge_corners = false
-    end = [ "group:g4", "group:g1", "spacer_right", "tray", "group:g2", "group:g3", "volume", "Lock", "session" ]
+    end = [ "group:g4", "group:g1", "tray", "group:g2", "group:g3", "volume", "Lock", "session" ]
     margin_ends = 0
     scale = 1.1000000089406967
     start = [ "launcher", "wallpaper", "group:g5" ]
@@ -78,7 +78,7 @@ order = [ "MainBar", "SideBar" ]
         enabled = true
         fill = "#07081B"
         id = "g5"
-        members = [ "Musik", "media", "Music" ]
+        members = [ "Musik", "Music", "media" ]
         opacity = 0.69999998807907104
         padding = 6.0
 
@@ -182,7 +182,10 @@ widget_order = [
     "lockscreen-widget-0000000000000002",
     "lockscreen-login-box@HDMI-A-1",
     "lockscreen-widget-0000000000000001",
-    "lockscreen-widget-0000000000000003"
+    "lockscreen-widget-0000000000000003",
+    "lockscreen-widget-0000000000000004",
+    "lockscreen-widget-0000000000000005",
+    "lockscreen-widget-0000000000000006"
 ]
 
     [lockscreen_widgets.grid]
@@ -259,7 +262,7 @@ widget_order = [
     box_height = 352.0
     box_width = 256.0
     cx = 960.0
-    cy = 732.0
+    cy = 716.0
     output = "HDMI-A-1"
     placement_height = 1080.0
     placement_width = 1920.0
@@ -270,6 +273,61 @@ widget_order = [
         background = false
         hide_when_no_media = true
         layout = "vertical"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
+    box_height = 64.0
+    box_width = 64.0
+    cx = 896.0
+    cy = 1036.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "button"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000004.settings]
+        background = false
+        color = "secondary"
+        command = "noctalia msg session lock-and-suspend"
+        glyph = "zzz"
+        label = ""
+        variant = "default"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
+    box_height = 64.0
+    box_width = 64.0
+    cx = 960.0
+    cy = 1036.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "button"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
+        background = false
+        color = "error"
+        command = "noctalia msg session shutdown"
+        glyph = "shutdown"
+        hover_background = "hover"
+        variant = "default"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000006]
+    box_height = 64.0
+    box_width = 64.0
+    cx = 1024.0
+    cy = 1036.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "button"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000006.settings]
+        background = false
+        color = "primary"
+        glyph = "reboot"
+        variant = "default"
 
 [nightlight]
 enabled = true
@@ -407,6 +465,7 @@ type = "custom_button"
 
 [widget.Musik]
 custom_image_colorize = true
+enabled = false
 glyph = "brand-spotify-filled"
 type = "custom_button"
 
@@ -536,3 +595,4 @@ hide_when_empty = true
 label_source = "name"
 max_label_chars = 3
 occupied_color = "on_hover"
+scale = 1.25
