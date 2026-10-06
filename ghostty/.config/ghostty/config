@@ -8,6 +8,8 @@ font-family = FiraCode Nerd Font Mono
 font-size = 12
 font-style = Medium
 
+keybind = ctrl+shift+c=copy_to_clipboard:plain
+copy-on-select = true
 
 
 theme = noctalia

@@ -32,10 +32,10 @@ spawn-at-startup "noctalia"
 
 // Spotify
 
-spawn-sh-at-startup "sleep 4 && flatpak run com.spotify.Client"
+spawn-sh-at-startup "sleep 10 && flatpak run com.spotify.Client"
 
 // Steam
-spawn-sh-at-startup "sleep 10 && /usr/bin/steam -silent"
+spawn-sh-at-startup "sleep 14 && /usr/bin/steam -silent"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"

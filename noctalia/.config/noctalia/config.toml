@@ -24,6 +24,9 @@ order = [ "MainBar", "SideBar" ]
         [bar.MainBar.monitor.DP-1]
         enabled = false
 
+        [bar.MainBar.monitor.DP-2]
+        enabled = false
+
         [bar.MainBar.monitor.DP-3]
         enabled = false
 
@@ -179,19 +182,105 @@ fingerprint = false
 enabled = true
 schema_version = 2
 widget_order = [
+    "lockscreen-login-box@DP-2",
+    "lockscreen-login-box@DP-1",
+    "lockscreen-login-box@DP-3",
     "lockscreen-widget-0000000000000002",
     "lockscreen-login-box@HDMI-A-1",
     "lockscreen-widget-0000000000000001",
     "lockscreen-widget-0000000000000003",
     "lockscreen-widget-0000000000000004",
     "lockscreen-widget-0000000000000005",
-    "lockscreen-widget-0000000000000006"
+    "lockscreen-widget-0000000000000006",
+    "lockscreen-widget-0000000000000007"
 ]
 
     [lockscreen_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
+    box_height = 196.0
+    box_width = 720.0
+    cx = 384.00021362304688
+    cy = 715.4168701171875
+    enabled = false
+    output = "DP-1"
+    placement_height = 1360.0
+    placement_width = 768.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "DP-2"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
+    box_height = 196.0
+    box_width = 736.0
+    cx = 384.00006103515625
+    cy = 1037.70849609375
+    output = "DP-3"
+    placement_height = 1360.0
+    placement_width = 768.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
     box_height = 70.0
@@ -329,6 +418,21 @@ widget_order = [
         glyph = "reboot"
         variant = "default"
 
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000007]
+    box_height = 224.0
+    box_width = 384.0
+    cx = 384.00006103515625
+    cy = 152.00001525878906
+    output = "DP-1"
+    placement_height = 1360.0
+    placement_width = 768.0
+    rotation = 0.0
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000007.settings]
+        background = false
+        color = "secondary"
+
 [nightlight]
 enabled = true
 temperature_day = 4500
@@ -358,6 +462,9 @@ polkit_agent = true
 screen_time_enabled = true
 settings_show_advanced = true
 telemetry_enabled = true
+
+    [shell.greeter_sync]
+    auto_sync = true
 
     [shell.mpris]
     blacklist = [ "firefox", "brave", "stremio", "vlc" ]
@@ -399,7 +506,7 @@ transition_on_startup = true
     path = "/home/dockas/Pictures/1080p/WitcherSigns.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
+    path = "/home/dockas/Pictures/1080p/WitcherSigns.jpg"
 
     [wallpaper.monitors.HDMI-A-1]
     path = "/home/dockas/Pictures/1080p/WitcherSigns.jpg"
@@ -509,6 +616,7 @@ capsule_opacity = 0.66000000000000003
 hide_album_art = true
 hide_artist = true
 hide_when_no_media = true
+min_length = 10
 scroll_repeat = "steps"
 title_scroll = "on_hover"
 
@@ -573,7 +681,8 @@ visualization = "none"
 [widget.tray]
 drawer = true
 drawer_item_size = 20.0
-pinned = [ "Battle.net", "steam", "spotify", "coolercontrol" ]
+hide_passive = false
+pinned = [ "battle.net", "steam", "coolercontrol" ]
 scale = 1.2
 
 [widget.volume]
