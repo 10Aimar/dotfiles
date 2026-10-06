@@ -65,6 +65,13 @@ window-rule {
 
 //--Gaming--
 
+// Steam App
+window-rule {
+    match app-id="steam" title="Steam"
+    open-maximized true
+    open-on-workspace ""
+    }
+
 // VRR for Steam Games
 window-rule {
     match app-id=r#"^steam_app_[0-9]+$"#
