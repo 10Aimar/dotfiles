@@ -21,12 +21,6 @@ order = [ "MainBar", "SideBar" ]
         scroll_down = "exec niri msg action focus-column-right-or-first"
         scroll_up = "exec niri msg action focus-column-left-or-last"
 
-        [bar.MainBar.monitor.DP-2]
-        enabled = false
-
-        [bar.MainBar.monitor.DP-3]
-        enabled = false
-
         [[bar.MainBar.capsule_group]]
         accordion = false
         accordion_direction = "end"
@@ -133,7 +127,7 @@ background_opacity = 0.0
 concave_edge_corners = false
 enabled = true
 icon_size = 65
-monitors = [ "HDMI-A-1", "DP-1" ]
+monitors = [ "DP-1" ]
 pinned = [
     "com.spotify.Client",
     "net.thunderbird.Thunderbird",
@@ -173,23 +167,22 @@ pre_action_fade_seconds = 0
 address = "Lisbon"
 
 [lockscreen]
+enabled = true
 fingerprint = false
+monitors = [ "DP-1" ]
+transition = [ "disc", "honeycomb", "stripes" ]
 
 [lockscreen_widgets]
 enabled = true
 schema_version = 2
 widget_order = [
-    "lockscreen-login-box@DP-2",
-    "lockscreen-login-box@DP-1",
-    "lockscreen-login-box@DP-3",
-    "lockscreen-widget-0000000000000002",
-    "lockscreen-login-box@HDMI-A-1",
-    "lockscreen-widget-0000000000000001",
     "lockscreen-widget-0000000000000003",
+    "lockscreen-login-box@DP-1",
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000002",
     "lockscreen-widget-0000000000000004",
     "lockscreen-widget-0000000000000005",
-    "lockscreen-widget-0000000000000006",
-    "lockscreen-widget-0000000000000007"
+    "lockscreen-widget-0000000000000006"
 ]
 
     [lockscreen_widgets.grid]
@@ -198,11 +191,10 @@ widget_order = [
     visible = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
-    box_height = 196.0
-    box_width = 720.0
-    cx = 960.00054931640625
-    cy = 568.1251220703125
-    enabled = false
+    box_height = 70.0
+    box_width = 240.0
+    cx = 960.0
+    cy = 937.0
     output = "DP-1"
     placement_height = 1080.0
     placement_width = 1920.0
@@ -214,87 +206,6 @@ widget_order = [
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
-        input_opacity = 1.0
-        input_radius = 6.0
-        layout = "regular"
-        show_caps_lock = true
-        show_keyboard_layout = true
-        show_login_button = true
-        show_media = true
-        show_session_buttons = true
-        show_unlock_hint = true
-        show_weather = true
-
-    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
-    box_height = 196.0
-    box_width = 810.0
-    cx = 960.0
-    cy = 898.0
-    output = "DP-2"
-    placement_height = 1080.0
-    placement_width = 1920.0
-    rotation = 0.0
-    type = "login_box"
-
-        [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
-        background_color = "surface_variant"
-        background_opacity = 0.88
-        background_radius = 12.0
-        center_password_text = false
-        input_opacity = 1.0
-        input_radius = 6.0
-        layout = "regular"
-        show_caps_lock = true
-        show_keyboard_layout = true
-        show_login_button = true
-        show_media = true
-        show_session_buttons = true
-        show_unlock_hint = true
-        show_weather = true
-
-    [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
-    box_height = 196.0
-    box_width = 720.0
-    cx = 384.00015258789062
-    cy = 1037.708740234375
-    output = "DP-3"
-    placement_height = 1360.0
-    placement_width = 768.0
-    rotation = 0.0
-    type = "login_box"
-
-        [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
-        background_color = "surface_variant"
-        background_opacity = 0.88
-        background_radius = 12.0
-        center_password_text = false
-        input_opacity = 1.0
-        input_radius = 6.0
-        layout = "regular"
-        show_caps_lock = true
-        show_keyboard_layout = true
-        show_login_button = true
-        show_media = true
-        show_session_buttons = true
-        show_unlock_hint = true
-        show_weather = true
-
-    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
-    box_height = 70.0
-    box_width = 240.0
-    cx = 960.0
-    cy = 953.0
-    output = "HDMI-A-1"
-    placement_height = 1080.0
-    placement_width = 1920.0
-    rotation = 0.0
-    type = "login_box"
-
-        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
-        background_color = "surface_variant"
-        background_opacity = 0.88
-        background_radius = 12.0
-        center_password_text = true
         input_opacity = 1.0
         input_radius = 6.0
         layout = "compact"
@@ -310,8 +221,8 @@ widget_order = [
     box_height = 224.0
     box_width = 384.0
     cx = 960.0
-    cy = 112.0
-    output = "HDMI-A-1"
+    cy = 124.0
+    output = "DP-1"
     placement_height = 1080.0
     placement_width = 1920.0
     rotation = 0.0
@@ -319,53 +230,50 @@ widget_order = [
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
         background = false
-        clock_style = "digital"
         color = "secondary"
-        shadow = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
-    box_height = 144.0
-    box_width = 1904.0
-    cx = 944.0
-    cy = 1004.0
-    output = "HDMI-A-1"
-    placement_height = 1080.0
-    placement_width = 1920.0
-    rotation = 0.0
-    type = "audio_visualizer"
-
-        [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
-        background = false
-        bands = 128
-        centered = true
-        color_1 = "secondary"
-        color_2 = "primary"
-        mirrored = true
-        reversed = true
-        show_when_idle = true
-
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
-    box_height = 352.0
+    box_height = 336.0
     box_width = 256.0
     cx = 960.0
-    cy = 716.0
-    output = "HDMI-A-1"
+    cy = 692.0
+    output = "DP-1"
     placement_height = 1080.0
     placement_width = 1920.0
     rotation = 0.0
     type = "media_player"
 
-        [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
         background = false
+        color = "secondary"
         hide_when_no_media = true
         layout = "vertical"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000003]
+    box_height = 176.0
+    box_width = 1904.0
+    cx = 952.0
+    cy = 992.0
+    output = "DP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "audio_visualizer"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000003.settings]
+        background = false
+        bands = 128
+        color_2 = "secondary"
+        mirrored = true
+        reversed = true
+        show_when_idle = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
     box_height = 64.0
     box_width = 64.0
-    cx = 896.0
-    cy = 1036.0
-    output = "HDMI-A-1"
+    cx = 880.0
+    cy = 1024.0
+    output = "DP-1"
     placement_height = 1080.0
     placement_width = 1920.0
     rotation = 0.0
@@ -376,15 +284,14 @@ widget_order = [
         color = "secondary"
         command = "noctalia msg session lock-and-suspend"
         glyph = "zzz"
-        label = ""
         variant = "default"
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
     box_height = 64.0
     box_width = 64.0
-    cx = 960.0
-    cy = 1036.0
-    output = "HDMI-A-1"
+    cx = 1040.0
+    cy = 1024.0
+    output = "DP-1"
     placement_height = 1080.0
     placement_width = 1920.0
     rotation = 0.0
@@ -392,18 +299,17 @@ widget_order = [
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
         background = false
-        color = "error"
-        command = "noctalia msg session shutdown"
-        glyph = "shutdown"
-        hover_background = "hover"
+        color = "on_surface"
+        command = "noctalia msg session reboot"
+        glyph = "reboot"
         variant = "default"
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000006]
     box_height = 64.0
     box_width = 64.0
-    cx = 1024.0
-    cy = 1036.0
-    output = "HDMI-A-1"
+    cx = 960.0
+    cy = 1024.0
+    output = "DP-1"
     placement_height = 1080.0
     placement_width = 1920.0
     rotation = 0.0
@@ -411,24 +317,10 @@ widget_order = [
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000006.settings]
         background = false
-        color = "primary"
-        glyph = "reboot"
+        color = "error"
+        command = "noctalia msg session shutdown"
+        glyph = "shutdown"
         variant = "default"
-
-    [lockscreen_widgets.widget.lockscreen-widget-0000000000000007]
-    box_height = 224.0
-    box_width = 384.0
-    cx = 960.00030517578125
-    cy = 120.70589447021484
-    output = "DP-1"
-    placement_height = 1080.0
-    placement_width = 1920.0
-    rotation = 0.0
-    type = "clock"
-
-        [lockscreen_widgets.widget.lockscreen-widget-0000000000000007.settings]
-        background = false
-        color = "secondary"
 
 [nightlight]
 enabled = true
@@ -436,7 +328,7 @@ temperature_day = 4500
 temperature_night = 3000
 
 [osd]
-monitors = [ "HDMI-A-1" ]
+monitors = [ "DP-1" ]
 
 [plugins]
 enabled = []
