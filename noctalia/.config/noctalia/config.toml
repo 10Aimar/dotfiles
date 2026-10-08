@@ -21,9 +21,6 @@ order = [ "MainBar", "SideBar" ]
         scroll_down = "exec niri msg action focus-column-right-or-first"
         scroll_up = "exec niri msg action focus-column-left-or-last"
 
-        [bar.MainBar.monitor.DP-1]
-        enabled = false
-
         [bar.MainBar.monitor.DP-2]
         enabled = false
 
@@ -136,7 +133,7 @@ background_opacity = 0.0
 concave_edge_corners = false
 enabled = true
 icon_size = 65
-monitors = [ "HDMI-A-1" ]
+monitors = [ "HDMI-A-1", "DP-1" ]
 pinned = [
     "com.spotify.Client",
     "net.thunderbird.Thunderbird",
@@ -203,12 +200,12 @@ widget_order = [
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
     box_height = 196.0
     box_width = 720.0
-    cx = 384.00021362304688
-    cy = 715.4168701171875
+    cx = 960.00054931640625
+    cy = 568.1251220703125
     enabled = false
     output = "DP-1"
-    placement_height = 1360.0
-    placement_width = 768.0
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "login_box"
 
@@ -257,9 +254,9 @@ widget_order = [
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
     box_height = 196.0
-    box_width = 736.0
-    cx = 384.00006103515625
-    cy = 1037.70849609375
+    box_width = 720.0
+    cx = 384.00015258789062
+    cy = 1037.708740234375
     output = "DP-3"
     placement_height = 1360.0
     placement_width = 768.0
@@ -421,11 +418,11 @@ widget_order = [
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000007]
     box_height = 224.0
     box_width = 384.0
-    cx = 384.00006103515625
-    cy = 152.00001525878906
+    cx = 960.00030517578125
+    cy = 120.70589447021484
     output = "DP-1"
-    placement_height = 1360.0
-    placement_width = 768.0
+    placement_height = 1080.0
+    placement_width = 1920.0
     rotation = 0.0
     type = "clock"
 
@@ -496,32 +493,21 @@ wallpaper_scheme = "faithful"
     community_ids = [ "spicetify", "pywalfox", "gimp", "inkscape", "vscode", "steam" ]
 
 [wallpaper]
+fill_color = "#000000"
 transition = [ "disc", "honeycomb", "stripes" ]
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/dockas/Pictures/1080p/WitcherSigns.jpg"
+    path = "/home/dockas/Pictures/Wallpapers/WitcherSigns.jpg"
 
     [wallpaper.last]
-    path = "/home/dockas/Pictures/1080p/WitcherSigns.jpg"
+    path = "/home/dockas/Pictures/Wallpapers/WitcherSigns.jpg"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/dockas/Pictures/1080p/WitcherSigns.jpg"
+    path = "/home/dockas/Pictures/Wallpapers/WitcherSigns.jpg"
 
     [wallpaper.monitors.HDMI-A-1]
     path = "/home/dockas/Pictures/1080p/WitcherSigns.jpg"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/dockas/Pictures/1080p/WitcherSigns.jpg"
-    theme_mode = "dark"
-    wallpaper_scheme = "faithful"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "dysfunctional"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
@@ -531,13 +517,19 @@ transition_on_startup = true
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
-    path = "/home/dockas/Pictures/Wallpapers/CP2077.png"
+    path = "/home/dockas/Pictures/Wallpapers/WitcherSigns.jpg"
     theme_mode = "dark"
-    wallpaper_scheme = "vibrant"
+    wallpaper_scheme = "faithful"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
-    path = "/home/dockas/Pictures/Wallpapers/RedEyedWW3.png"
+    path = "/home/dockas/Pictures/Wallpapers/CP2077.png"
+    theme_mode = "dark"
+    wallpaper_scheme = "dysfunctional"
+
+    [[wallpaper.favorite]]
+    palette_source = "wallpaper"
+    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
     theme_mode = "dark"
     wallpaper_scheme = "dysfunctional"
 

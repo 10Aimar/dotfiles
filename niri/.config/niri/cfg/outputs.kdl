@@ -3,8 +3,21 @@
 // https://niri-wm.github.io/niri/Configuration:-Outputs
 
 // Main monitor: ViewSonic XG2405, 1080p 144Hz with VRR
-output "HDMI-A-1" {
-    mode "1920x1080@144.000"
+    //@ HDMI
+// output "HDMI-A-1" {
+//     mode "1920x1080@144.000"
+//     scale 1
+//     position x=0 y=0
+//     variable-refresh-rate on-demand=true
+//     focus-at-startup
+//     hot-corners {
+//         bottom-left
+//     }
+// }
+
+    //@ DP
+output "DP-1" {
+    mode "1920x1080@144.001"
     scale 1
     position x=0 y=0
     variable-refresh-rate on-demand=true
@@ -14,25 +27,11 @@ output "HDMI-A-1" {
     }
 }
 
-    //old DP
-// output "DP-1" {
-//     // mode "1920x1080@60.000"
-//     mode "1920x1080@144.001"
-//     scale 1
-//     position x=1360 y=0
-//     variable-refresh-rate on-demand=true
-//     focus-at-startup
-//     hot-corners {
-//         bottom-left
-//     }
-// }
-
 // Second monitor: Samsung TV, 720p 60Hz
-output "DP-1" {
-    //off
+output "DP-3" {
+    off
     mode "1360x768@60.015"
     //mode "1920x1080@60.000"
-    //mode "1024x768@75.029"
     transform "90"
     position x=1920 y=-140
     scale 1
