@@ -7,16 +7,45 @@
 // This line starts waybar, a commonly used bar for Wayland compositors.
 //spawn-at-startup "waybar"
 
-// Workspaces setup
-workspace "󰝚"
-workspace ""
-workspace "" //""
-workspace "󰖟"
-workspace ""
-workspace ""
-workspace "󰆍"
+//--Workspaces setup------------
+workspace "󰝚" {
+    open-on-output "HDMI-A-1"
+}
 
-spawn-at-startup "niri" "msg" "action" "focus-workspace" "󰖟"
+workspace "󰟴" {
+    open-on-output "HDMI-A-1"
+}
+
+workspace "" {
+    open-on-output "DP-1"
+}
+
+workspace "" {
+    open-on-output "DP-1"
+}
+
+workspace "󰖟" {
+    open-on-output "HDMI-A-1"
+}
+
+workspace "" {
+    open-on-output "DP-1"
+}
+
+
+workspace "" {
+    open-on-output "DP-1"
+}
+
+workspace "" {
+    open-on-output "DP-1"
+}
+
+//workspace ""
+//workspace "󰆍"
+//---------------------------
+spawn-sh-at-startup r#"niri msg action focus-workspace "󰖟" && niri msg action focus-workspace """#
+//spawn-at-startup "niri" "msg" "action" "focus-workspace" "󰖟"
 
 // 4 Kwallet seemless login
 spawn-at-startup "/usr/libexec/pam_kwallet_init"

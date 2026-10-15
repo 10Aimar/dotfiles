@@ -21,6 +21,9 @@ order = [ "MainBar", "SideBar" ]
         scroll_down = "exec niri msg action focus-column-right-or-first"
         scroll_up = "exec niri msg action focus-column-left-or-last"
 
+        [bar.MainBar.monitor.HDMI-A-1]
+        enabled = false
+
         [[bar.MainBar.capsule_group]]
         accordion = false
         accordion_direction = "end"
@@ -87,6 +90,41 @@ order = [ "MainBar", "SideBar" ]
         opacity = 0.69999998807907104
         padding = 6.0
 
+    [bar.SideBar]
+    background_opacity = 0.0
+    border = "primary"
+    capsule = true
+    capsule_border = "on_tertiary"
+    capsule_fill = "on_tertiary"
+    capsule_opacity = 0.69999998435378075
+    center = [ "workspaces" ]
+    concave_edge_corners = false
+    enabled = true
+    end = []
+    margin_ends = 0
+    reserve_space = true
+    scale = 1.1000000089406967
+    start = [ "group:g1" ]
+
+        [bar.SideBar.dead_zone.actions]
+        scroll_down = "exec niri msg action focus-column-right-or-first"
+        scroll_up = "exec niri msg action focus-column-left-or-last"
+
+        [bar.SideBar.monitor.DP-1]
+        enabled = false
+
+        [[bar.SideBar.capsule_group]]
+        accordion = false
+        accordion_direction = "end"
+        border = "on_tertiary"
+        border_width = 1.0
+        enabled = true
+        fill = "on_tertiary"
+        id = "g1"
+        members = [ "Music", "media" ]
+        opacity = 0.69999998807907104
+        padding = 6.0
+
 [control_center]
 hidden_tabs = [ "monitor" ]
 sidebar = "compact"
@@ -130,9 +168,9 @@ icon_size = 65
 monitors = [ "DP-1" ]
 pinned = [
     "com.spotify.Client",
-    "net.thunderbird.Thunderbird",
     "com.brave.Browser.flextop.brave-eppojlglocelodeimnohnlnionkobfln-Default",
     "com.brave.Browser.flextop.brave-pnghkaloolpocgfpndmjfbhpjffdmdii-Default",
+    "net.thunderbird.Thunderbird",
     "org.kde.dolphin",
     "org.mozilla.firefox"
 ]
@@ -169,13 +207,15 @@ address = "Lisbon"
 [lockscreen]
 enabled = true
 fingerprint = false
-monitors = [ "DP-1" ]
+monitors = []
 transition = [ "disc", "honeycomb", "stripes" ]
 
 [lockscreen_widgets]
 enabled = true
 schema_version = 2
 widget_order = [
+    "lockscreen-login-box@HDMI-A-1",
+    "lockscreen-login-box@DP-3",
     "lockscreen-widget-0000000000000003",
     "lockscreen-login-box@DP-1",
     "lockscreen-widget-0000000000000001",
@@ -215,6 +255,61 @@ widget_order = [
         show_media = true
         show_session_buttons = true
         show_unlock_hint = false
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-3"]
+    box_height = 196.0
+    box_width = 736.0
+    cx = 384.00003051757812
+    cy = 1037.7083740234375
+    output = "DP-3"
+    placement_height = 1360.0
+    placement_width = 768.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-3".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 196.0
+    box_width = 720.0
+    cx = 680.0
+    cy = 404.00006103515625
+    enabled = false
+    output = "HDMI-A-1"
+    placement_height = 768.0
+    placement_width = 1360.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
         show_weather = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
@@ -328,10 +423,14 @@ temperature_day = 4500
 temperature_night = 3000
 
 [osd]
+background_opacity = 0.69999998435378075
 monitors = [ "DP-1" ]
 
+    [osd.kinds]
+    lock_keys = false
+
 [plugins]
-enabled = []
+enabled = [ "noctalia/screen_recorder" ]
 
     [[plugins.source]]
     kind = "git"
@@ -356,7 +455,7 @@ telemetry_enabled = true
     auto_sync = true
 
     [shell.mpris]
-    blacklist = [ "firefox", "brave", "stremio", "vlc" ]
+    blacklist = [ "firefox", "brave", "stremio", "vlc", "kde" ]
 
     [shell.panel]
     open_near_click_control_center = true
@@ -378,11 +477,11 @@ builtin = "Gruvbox"
 community_palette = "ADW"
 mode = "dark"
 source = "wallpaper"
-wallpaper_scheme = "faithful"
+wallpaper_scheme = "dysfunctional"
 
     [theme.templates]
     builtin_ids = [ "gtk3", "gtk4", "ghostty", "kcolorscheme", "niri", "starship" ]
-    community_ids = [ "spicetify", "pywalfox", "gimp", "inkscape", "vscode", "steam" ]
+    community_ids = [ "spicetify", "pywalfox", "gimp", "inkscape", "vscode", "heroiclauncher", "steam" ]
 
 [wallpaper]
 fill_color = "#000000"
@@ -390,16 +489,16 @@ transition = [ "disc", "honeycomb", "stripes" ]
 transition_on_startup = true
 
     [wallpaper.default]
-    path = "/home/dockas/Pictures/Wallpapers/WitcherSigns.jpg"
+    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
 
     [wallpaper.last]
-    path = "/home/dockas/Pictures/Wallpapers/WitcherSigns.jpg"
+    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/dockas/Pictures/Wallpapers/WitcherSigns.jpg"
+    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
 
     [wallpaper.monitors.HDMI-A-1]
-    path = "/home/dockas/Pictures/1080p/WitcherSigns.jpg"
+    path = "/home/dockas/Pictures/Wallpapers/Illustrated.png"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
@@ -474,6 +573,12 @@ stat = "gpu_vram_used"
 type = "sysmon"
 visualization = "none"
 
+[widget.audio_visualizer]
+bands = 25
+color_1 = "secondary"
+color_2 = "tertiary"
+width = 100
+
 [widget.clock]
 anchor = true
 font_weight = 1000
@@ -488,15 +593,16 @@ capsule = false
 capsule_border = "#07081B"
 capsule_opacity = 0.75
 color = "on_surface"
-custom_image = "/home/dockas/Pictures/icons/Scalable/fedoraSamon1.svg"
+custom_image = "/home/dockas/Pictures/icons/Scalable/fedoraBlack5.svg"
 custom_image_colorize = true
 enabled = true
-scale = 1.5
+icon_color = "on_surface"
+scale = 1.7
 
 [widget.media]
-capsule = false
+capsule = true
 capsule_border = "#07081B"
-capsule_opacity = 0.66000000000000003
+capsule_opacity = 0.70000000000000007
 hide_album_art = true
 hide_artist = true
 hide_when_no_media = true
@@ -509,7 +615,7 @@ title_scroll = "on_hover"
     scroll_up = "exec ~/.local/bin/spotify-volume.sh up"
 
 [widget.mywindow]
-color = "tertiary"
+color = "secondary"
 custom_image_colorize = true
 glyph = "select"
 type = "custom_button"
@@ -582,10 +688,11 @@ type = "oldirtty/color_picker:widget"
 capsule = true
 capsule_border = "#07081B"
 capsule_opacity = 0.70000000000000007
+change_color_on_hover = false
 empty_color = "shadow"
-focused_color = "tertiary"
+focused_color = "secondary"
 hide_when_empty = true
 label_source = "name"
 max_label_chars = 3
-occupied_color = "on_hover"
+occupied_color = "primary"
 scale = 1.25

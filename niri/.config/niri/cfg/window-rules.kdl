@@ -35,14 +35,14 @@ window-rule {
 window-rule {
     match app-id=r#"firefox$"#
     open-maximized true
-    open-on-workspace "󰖟"
+    open-on-workspace ""
 }
 
 // Brave
 window-rule {
     match app-id="brave-browser"
     open-maximized true
-    open-on-workspace "󰖟"
+    open-on-workspace ""
 }
 
 //---------------------------------------------
@@ -53,12 +53,14 @@ window-rule {
 window-rule {
     match app-id="org.kde.kwrite"
     open-on-workspace ""
+    opacity 0.85
 }
 
 // Dolphin
 window-rule {
     match app-id="org.kde.dolphin"
-    open-on-workspace ""
+    open-on-workspace ""
+    opacity 0.85
 }
 
 //---------------------------------------------
@@ -121,7 +123,7 @@ window-rule {
 // NOS TV - Brave PWA
 window-rule {
     match app-id="brave-pnghkaloolpocgfpndmjfbhpjffdmdii-Default"
-    open-on-workspace ""
+    open-on-workspace "󰟴"
     // open-on-output "HDMI-A-1"
     open-maximized true
 }
@@ -140,7 +142,7 @@ window-rule {
 // Thunderbird
 window-rule {
     match app-id="net.thunderbird.Thunderbird"
-    open-on-workspace ""
+    open-on-workspace ""
     open-maximized true
 }
 
